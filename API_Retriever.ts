@@ -7,7 +7,7 @@ const keyValue = fs.readFileSync(keyFilePath);
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
-const strToAscii = (text) => {
+const strToAscii = (text: string) => {
   const ret = [];
   for (let i = 0; i < text.length; i++) {
     if (text.charCodeAt(i) < 128) {
@@ -17,7 +17,11 @@ const strToAscii = (text) => {
   return ret;
 };
 
-const procFile = (fileExtension, fileText, currentDatabase) => {
+const procFile = (
+  fileExtension: string,
+  fileText: string,
+  currentDatabase: { [x: string]: any }
+) => {
   const newStr = strToAscii(fileText);
   // If no file extension, we used " " to represent extensionless
   if (!currentDatabase[fileExtension]) {
@@ -31,7 +35,12 @@ const procFile = (fileExtension, fileText, currentDatabase) => {
   currentDatabase[fileExtension] = fileExtDb;
 };
 
-const getFile = async (entry) => {
+const getFile = async (entry: {
+  owner: any;
+  repo: any;
+  branch: any;
+  filePath: any;
+}) => {
   const response = await fetch(
     `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${entry.branch}/${entry.filePath}`
   );
@@ -44,8 +53,8 @@ const getFile = async (entry) => {
   return data;
 };
 
-const getRepoFiles = async (repo) => {
-  let returnedfiles = [];
+const getRepoFiles = async (repo: { owner: any; repo: any }) => {
+  let returnedfiles: string[] = [];
   let branchName = "master";
   let response = await octokit.request(
     `GET /repos/{owner}/{repo}/git/trees/master?recursive=1`,
@@ -69,7 +78,7 @@ const getRepoFiles = async (repo) => {
     console.error("NON 200 Response", repo);
     return undefined;
   }
-  response.data.tree.forEach((treeEntry) => {
+  response.data.tree.forEach((treeEntry: { type: string; path: string }) => {
     if (treeEntry.type === "blob") {
       returnedfiles.push(treeEntry.path);
     }
@@ -82,7 +91,10 @@ const getRepoFiles = async (repo) => {
   };
 };
 
-const processRepo = async (repoEntry, currentDatabase) => {
+const processRepo = async (
+  repoEntry: { owner: string; repo: string },
+  currentDatabase: any
+) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -110,12 +122,12 @@ const processRepo = async (repoEntry, currentDatabase) => {
   }
 };
 
-const getOrgRepos = async (org) => {
-  let returnedRepos = [];
+const getOrgRepos = async (org: { owner: string }) => {
+  let returnedRepos: string[] = [];
   const response = await octokit.request("GET /orgs/{org}/repos", {
     org: org.owner,
   });
-  response.data.forEach((repoStruct) => {
+  response.data.forEach((repoStruct: { private: any; name: any }) => {
     if (!repoStruct.private) {
       returnedRepos.push(repoStruct.name);
     }
@@ -127,15 +139,7 @@ const getOrgRepos = async (org) => {
   };
 };
 
-const writeDatabase = (filePath, currentDatabase) => {
-  fs.writeFileSync(filePath, JSON.stringify(currentDatabase));
-};
-
-const readDatabase = (filePath) => {
-  return JSON.parse(fs.readFileSync(filePath).toString());
-};
-
-const processOrg = async (orgEntry, currentDb) => {
+const processOrg = async (orgEntry: { owner: string }, currentDb: any) => {
   /**
    * Steps:
    * 1. Get all org repos
@@ -150,11 +154,11 @@ const processOrg = async (orgEntry, currentDb) => {
 
 // RETURNS
 // [listOfOrganizations, ID of last org in list (so we can not dup)]
-const getOrgs = async (since) => {
+const getOrgs = async (since: string) => {
   const response = await octokit.request(`GET /organizations?since=${since}`);
   // todo: error handling
   return [
-    response.data.map((val) => {
+    response.data.map((val: { login: string }) => {
       return { owner: val.login };
     }),
     response.data[response.data.length - 1].id,
