@@ -25,7 +25,7 @@ const strToAscii = (text) => {
 
 const procFile = (fileExtension, fileText) => {
   const newStr = strToAscii(fileText);
-  // If no file extension, we used " " to represent extensionless
+  // Making sure we have a database setup for all extensions
   if (!currentDatabase[fileExtension]) {
     currentDatabase[fileExtension] = {};
   }
@@ -109,9 +109,15 @@ const processRepo = async (repoEntry) => {
   }
   for (let i = 0; i < repoFileStruct.files.length; i++) {
     const filePath = repoFileStruct.files[i];
-    const firstDotIndex = filePath.indexOf(".");
+
+    // Generating the extension is actually troublesome
+    // We first need to make sure we are not directory nested
+    // Then we can get the first dot
+    const splitPath = filePath.split("/");
+    const lastSplit = splitPath[splitPath.length - 1];
+    const firstDotIndex = lastSplit.indexOf(".");
     const fileExtension =
-      firstDotIndex === -1 ? " " : filePath.slice(firstDotIndex + 1);
+      firstDotIndex === -1 ? " " : lastSplit.slice(firstDotIndex + 1);
     let fileData = await getFile({
       owner: repoFileStruct.owner,
       repo: repoFileStruct.repo,
@@ -171,7 +177,7 @@ const getUsers = async (since) => {
 // Function to handle termination signals
 const cleanUpDb = async () => {
   console.log(
-    `\nReceived termination signal. Writing database to ${DbFilePath}`
+    `\nReceived termination signal. Writing database to ${DbFilePath} and SinceCounter to ${SinceFilePath}`
   );
 
   try {
