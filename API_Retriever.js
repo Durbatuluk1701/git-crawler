@@ -4,6 +4,12 @@ const fs = require("fs");
 const keyFilePath = "./SECRET_KEY";
 const keyValue = fs.readFileSync(keyFilePath);
 
+const DbFilePath = "./DB.json";
+const currentDatabase = JSON.parse(fs.readFileSync(DbFilePath));
+
+const SinceFilePath = "./SinceCounter";
+let sinceCounter = fs.readFileSync(SinceFilePath).toString();
+
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
@@ -17,7 +23,7 @@ const strToAscii = (text) => {
   return ret;
 };
 
-const procFile = (fileExtension, fileText, currentDatabase) => {
+const procFile = (fileExtension, fileText) => {
   const newStr = strToAscii(fileText);
   // If no file extension, we used " " to represent extensionless
   if (!currentDatabase[fileExtension]) {
@@ -47,25 +53,31 @@ const getFile = async (entry) => {
 const getRepoFiles = async (repo) => {
   let returnedfiles = [];
   let branchName = "master";
-  let response = await octokit.request(
-    `GET /repos/{owner}/{repo}/git/trees/master?recursive=1`,
-    {
-      owner: repo.owner,
-      repo: repo.repo,
-    }
-  );
-  if (response.status === 404) {
-    // Try a "main"
-    branchName = "main";
+  let response = undefined;
+  try {
     response = await octokit.request(
-      `GET /repos/{owner}/{repo}/git/trees/main?recursive=1`,
+      `GET /repos/{owner}/{repo}/git/trees/master?recursive=1`,
       {
         owner: repo.owner,
         repo: repo.repo,
       }
     );
+  } catch (err) {
+    try {
+      // Try a "main"
+      branchName = "main";
+      response = await octokit.request(
+        `GET /repos/{owner}/{repo}/git/trees/main?recursive=1`,
+        {
+          owner: repo.owner,
+          repo: repo.repo,
+        }
+      );
+    } catch (err) {
+      console.error("Neither MAIN nor MASTER branch", repo);
+    }
   }
-  if (response.status !== 200) {
+  if (!response || response.status !== 200) {
     console.error("NON 200 Response", repo);
     return undefined;
   }
@@ -82,7 +94,7 @@ const getRepoFiles = async (repo) => {
   };
 };
 
-const processRepo = async (repoEntry, currentDatabase) => {
+const processRepo = async (repoEntry) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -110,11 +122,9 @@ const processRepo = async (repoEntry, currentDatabase) => {
   }
 };
 
-const getOrgRepos = async (org) => {
+const getUserRepos = async (userEntry) => {
   let returnedRepos = [];
-  const response = await octokit.request("GET /orgs/{org}/repos", {
-    org: org.owner,
-  });
+  const response = await octokit.request(`GET /users/${userEntry.owner}/repos`);
   response.data.forEach((repoStruct) => {
     if (!repoStruct.private) {
       returnedRepos.push(repoStruct.name);
@@ -122,29 +132,21 @@ const getOrgRepos = async (org) => {
   });
   // TODO: Error handling
   return {
-    owner: org.owner,
+    owner: userEntry.owner,
     repos: returnedRepos,
   };
 };
 
-const writeDatabase = (filePath, currentDatabase) => {
-  fs.writeFileSync(filePath, JSON.stringify(currentDatabase));
-};
-
-const readDatabase = (filePath) => {
-  return JSON.parse(fs.readFileSync(filePath).toString());
-};
-
-const processOrg = async (orgEntry, currentDb) => {
+const processUser = async (userEntry) => {
   /**
    * Steps:
-   * 1. Get all org repos
+   * 1. Get all user repos
    * 2. Process all repos
    * 3. Profit
    */
-  const { owner, repos } = await getOrgRepos(orgEntry);
+  const { owner, repos } = await getUserRepos(userEntry);
   for (let i = 0; i < repos.length; i++) {
-    processRepo({ owner: owner, repo: repos[i] }, currentDb);
+    processRepo({ owner: owner, repo: repos[i] });
   }
 };
 
@@ -153,14 +155,55 @@ const processOrg = async (orgEntry, currentDb) => {
 const getOrgs = async (since) => {
   const response = await octokit.request(`GET /organizations?since=${since}`);
   // todo: error handling
-  return [
-    response.data.map((val) => {
-      return { owner: val.login };
-    }),
-    response.data[response.data.length - 1].id,
-  ];
+  return response.data.map((val) => {
+    return { owner: val.login, id: val.id };
+  });
 };
 
+const getUsers = async (since) => {
+  const response = await octokit.request(`GET /users?since=${since}`);
+  // todo: error handling
+  return response.data.map((val) => {
+    return { owner: val.login, id: val.id };
+  });
+};
+
+// Function to handle termination signals
+const cleanUpDb = async () => {
+  console.log(
+    `\nReceived termination signal. Writing database to ${DbFilePath}`
+  );
+
+  try {
+    fs.writeFileSync(DbFilePath, JSON.stringify(currentDatabase, null, 2));
+    fs.writeFileSync(SinceFilePath, sinceCounter.toString());
+
+    process.exit(0);
+  } catch (err) {
+    console.error("Error occurred during cleanup:", err);
+    process.exit(1);
+  }
+};
+
+// Listen signals
+process.on("SIGTERM", cleanUpDb);
+process.on("SIGINT", cleanUpDb);
+
+const runCrawler = async () => {
+  while (true) {
+    const nextUserBatch = await getUsers(sinceCounter);
+    for (let i = 0; i < nextUserBatch.length; i++) {
+      const currentUser = nextUserBatch[i];
+      await processUser(currentUser);
+      console.log(
+        `Processed User: ${currentUser.owner} with ID: ${currentUser.id}\n`
+      );
+      sinceCounter = nextUserBatch[i].id;
+    }
+  }
+};
+
+runCrawler();
 // // GET USERS
 // await octokit.request("GET /users");
 // // GET USER BY ID
