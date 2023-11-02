@@ -1,11 +1,15 @@
 const Octokit = require("octokit");
 const fs = require("fs");
+const cliProgress = require("cli-progress");
 
 const keyFilePath = "./SECRET_KEY";
 const keyValue = fs.readFileSync(keyFilePath);
 
 const DbFilePath = "./DB.json";
 const currentDatabase = JSON.parse(fs.readFileSync(DbFilePath));
+
+const NumProcessedPath = "./NumProcessed";
+let numProcessed = Number(fs.readFileSync(NumProcessedPath).toString());
 
 const SinceFilePath = "./SinceCounter";
 let sinceCounter = fs.readFileSync(SinceFilePath).toString();
@@ -60,31 +64,13 @@ const getFile = async (entry) => {
 
 const getRepoFiles = async (repo) => {
   let returnedfiles = [];
-  let branchName = "master";
-  let response = undefined;
-  try {
-    response = await octokit.request(
-      `GET /repos/{owner}/{repo}/git/trees/master?recursive=1`,
-      {
-        owner: repo.owner,
-        repo: repo.repo,
-      }
-    );
-  } catch (err) {
-    try {
-      // Try a "main"
-      branchName = "main";
-      response = await octokit.request(
-        `GET /repos/{owner}/{repo}/git/trees/main?recursive=1`,
-        {
-          owner: repo.owner,
-          repo: repo.repo,
-        }
-      );
-    } catch (err) {
-      console.error("Neither MAIN nor MASTER branch", repo);
+  const response = await octokit.request(
+    `GET /repos/{owner}/{repo}/git/trees/${repo.branch}?recursive=1`,
+    {
+      owner: repo.owner,
+      repo: repo.repo,
     }
-  }
+  );
   if (!response || response.status !== 200) {
     console.error("NON 200 Response", repo);
     return undefined;
@@ -98,11 +84,44 @@ const getRepoFiles = async (repo) => {
     files: returnedfiles,
     owner: repo.owner,
     repo: repo.repo,
-    branch: branchName,
+    branch: repo.branch,
   };
 };
 
-const processRepo = async (repoEntry) => {
+const getFileExtension = (fileName) => {
+  // Generating the extension is actually troublesome
+  // We first need to make sure we are not directory nested
+  // Then we can get the first dot
+
+  // PREVIOUSLY I had tried more complicate, but now I am
+  // Just going to use the last dot onwards
+  // AND we always want lowercase for minimal duplication in DB
+  const lastDot = fileName.lastIndexOf(".");
+  return lastDot === -1 ? " " : fileName.slice(lastDot + 1).toLowerCase();
+
+  // const splitPath = fileName.split("/");
+  // const lastSplit = splitPath[splitPath.length - 1];
+  // const lastFirstDotIndex = lastSplit.indexOf(".");
+  // return lastFirstDotIndex === -1
+  //   ? " "
+  //   : lastSplit.slice(lastFirstDotIndex + 1);
+};
+
+const disAllowedExtensions = [
+  "pdf",
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "glif",
+  "exe",
+  "o",
+  "ico",
+  "svn-base",
+  "log",
+];
+
+const processRepo = async (repoEntry, multiBarHandle) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -110,23 +129,34 @@ const processRepo = async (repoEntry) => {
    * 3. For each file, store its values in the data base
    *
    */
-  console.log(`\tProcessing Repo ${repoEntry.owner}/${repoEntry.repo}`);
   const repoFileStruct = await getRepoFiles(repoEntry);
   if (!repoFileStruct) {
-    console.error("COULDNT GET THE REPO STRUCTURE!");
+    console.error(
+      `COULDNT GET THE REPO STRUCTURE for ${repoEntry.owner}/${repoEntry.repo} @ ${repoEntry.branch}`
+    );
     return;
   }
-  for (let i = 0; i < repoFileStruct.files.length; i++) {
+
+  const numFiles = repoFileStruct.files.length;
+
+  const newBar = multiBarHandle.create(numFiles, 0);
+
+  newBar.update(0, { repoName: repoEntry.repo });
+
+  for (let i = 0; i < numFiles; i++) {
+    if (i % 10 === 0) {
+      newBar.update(i);
+    }
+
     const filePath = repoFileStruct.files[i];
 
-    // Generating the extension is actually troublesome
-    // We first need to make sure we are not directory nested
-    // Then we can get the first dot
-    const splitPath = filePath.split("/");
-    const lastSplit = splitPath[splitPath.length - 1];
-    const firstDotIndex = lastSplit.indexOf(".");
-    const fileExtension =
-      firstDotIndex === -1 ? " " : lastSplit.slice(firstDotIndex + 1);
+    const fileExtension = getFileExtension(filePath);
+
+    if (disAllowedExtensions.includes(fileExtension)) {
+      // We do not want to include certain file types
+      continue;
+    }
+
     let fileData = await getFile({
       owner: repoFileStruct.owner,
       repo: repoFileStruct.repo,
@@ -135,14 +165,19 @@ const processRepo = async (repoEntry) => {
     });
     procFile(fileExtension, fileData, currentDatabase);
   }
+  numProcessed += numFiles;
+  newBar.update(numFiles);
 };
 
 const getUserRepos = async (userEntry) => {
   let returnedRepos = [];
   const response = await octokit.request(`GET /users/${userEntry.owner}/repos`);
   response.data.forEach((repoStruct) => {
-    if (!repoStruct.private) {
-      returnedRepos.push(repoStruct.name);
+    if (!repoStruct.private && !repoStruct.fork) {
+      returnedRepos.push({
+        name: repoStruct.name,
+        branch: repoStruct.default_branch,
+      });
     }
   });
   // TODO: Error handling
@@ -164,14 +199,32 @@ const processUser = async (userEntry) => {
   );
   const { owner, repos } = await getUserRepos(userEntry);
   const promiseList = [];
+
+  const multiBar = new cliProgress.MultiBar(
+    {
+      clearOnComplete: true,
+      hideCursor: false,
+      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
+      autopadding: true,
+    },
+    cliProgress.Presets.shades_classic
+  );
+
   for (let i = 0; i < repos.length; i++) {
+    const { name, branch } = repos[i];
     promiseList.push(
-      processRepo({ owner: owner, repo: repos[i] }).then((res) =>
-        console.log(`\tCompleted Repo ${owner}/${repos[i]}`)
+      processRepo(
+        {
+          owner: owner,
+          repo: name,
+          branch: branch,
+        },
+        multiBar
       )
     );
   }
   await Promise.all(promiseList);
+  multiBar.stop();
 };
 
 // RETURNS
@@ -211,12 +264,16 @@ const runningPromise = runCrawler();
 // Function to handle termination signals
 const cleanUpDb = async () => {
   console.log(
-    `\nReceived termination signal. Writing database to ${DbFilePath} and SinceCounter to ${SinceFilePath}`
+    `\nReceived termination signal.
+    \tWriting database to ${DbFilePath}
+    \tNumProcessed to ${NumProcessedPath}
+    \tSinceCounter to ${SinceFilePath}`
   );
 
   try {
     fs.writeFileSync(DbFilePath, JSON.stringify(currentDatabase, null, 2));
     fs.writeFileSync(SinceFilePath, sinceCounter.toString());
+    fs.writeFileSync(NumProcessedPath, numProcessed.toString());
 
     process.exit(0);
   } catch (err) {
