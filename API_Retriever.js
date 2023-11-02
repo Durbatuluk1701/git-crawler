@@ -11,6 +11,7 @@ const SinceFilePath = "./SinceCounter";
 let sinceCounter = fs.readFileSync(SinceFilePath).toString();
 
 let allowRunning = true;
+let alreadyEscaped = false;
 
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
@@ -44,7 +45,7 @@ const sleep = (ms) => {
 };
 
 const getFile = async (entry) => {
-  await sleep(250);
+  // await sleep(250);
   const response = await fetch(
     `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${entry.branch}/${entry.filePath}`
   );
@@ -109,6 +110,7 @@ const processRepo = async (repoEntry) => {
    * 3. For each file, store its values in the data base
    *
    */
+  console.log(`\tProcessing Repo ${repoEntry.owner}/${repoEntry.repo}`);
   const repoFileStruct = await getRepoFiles(repoEntry);
   if (!repoFileStruct) {
     console.error("COULDNT GET THE REPO STRUCTURE!");
@@ -157,10 +159,19 @@ const processUser = async (userEntry) => {
    * 2. Process all repos
    * 3. Profit
    */
+  console.log(
+    `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
+  );
   const { owner, repos } = await getUserRepos(userEntry);
+  const promiseList = [];
   for (let i = 0; i < repos.length; i++) {
-    await processRepo({ owner: owner, repo: repos[i] });
+    promiseList.push(
+      processRepo({ owner: owner, repo: repos[i] }).then((res) =>
+        console.log(`\tCompleted Repo ${owner}/${repos[i]}`)
+      )
+    );
   }
+  await Promise.all(promiseList);
 };
 
 // RETURNS
@@ -215,10 +226,16 @@ const cleanUpDb = async () => {
 };
 
 const startShutdown = async () => {
+  if (alreadyEscaped) {
+    console.log("Shutdown Forced... Writeback not guaranteed!");
+    process.exit(2);
+  }
   allowRunning = false;
   console.log(
     "Shutdown Starting... Please be Patient as all remaining requests are handled"
   );
+
+  alreadyEscaped = true;
 
   await runningPromise;
   await cleanUpDb();
