@@ -159,7 +159,7 @@ const processUser = async (userEntry) => {
    */
   const { owner, repos } = await getUserRepos(userEntry);
   for (let i = 0; i < repos.length; i++) {
-    processRepo({ owner: owner, repo: repos[i] });
+    await processRepo({ owner: owner, repo: repos[i] });
   }
 };
 
