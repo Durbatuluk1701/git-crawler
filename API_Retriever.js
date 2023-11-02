@@ -10,6 +10,8 @@ const currentDatabase = JSON.parse(fs.readFileSync(DbFilePath));
 const SinceFilePath = "./SinceCounter";
 let sinceCounter = fs.readFileSync(SinceFilePath).toString();
 
+let allowRunning = true;
+
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
@@ -37,7 +39,12 @@ const procFile = (fileExtension, fileText) => {
   currentDatabase[fileExtension] = fileExtDb;
 };
 
+const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 const getFile = async (entry) => {
+  await sleep(250);
   const response = await fetch(
     `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${entry.branch}/${entry.filePath}`
   );
@@ -174,6 +181,22 @@ const getUsers = async (since) => {
   });
 };
 
+const runCrawler = async () => {
+  while (allowRunning) {
+    const nextUserBatch = await getUsers(sinceCounter);
+    for (let i = 0; i < nextUserBatch.length && allowRunning; i++) {
+      const currentUser = nextUserBatch[i];
+      await processUser(currentUser);
+      console.log(
+        `Processed User: ${currentUser.owner} with ID: ${currentUser.id}\n`
+      );
+      sinceCounter = nextUserBatch[i].id;
+    }
+  }
+};
+
+const runningPromise = runCrawler();
+
 // Function to handle termination signals
 const cleanUpDb = async () => {
   console.log(
@@ -191,25 +214,20 @@ const cleanUpDb = async () => {
   }
 };
 
-// Listen signals
-process.on("SIGTERM", cleanUpDb);
-process.on("SIGINT", cleanUpDb);
+const startShutdown = async () => {
+  allowRunning = false;
+  console.log(
+    "Shutdown Starting... Please be Patient as all remaining requests are handled"
+  );
 
-const runCrawler = async () => {
-  while (true) {
-    const nextUserBatch = await getUsers(sinceCounter);
-    for (let i = 0; i < nextUserBatch.length; i++) {
-      const currentUser = nextUserBatch[i];
-      await processUser(currentUser);
-      console.log(
-        `Processed User: ${currentUser.owner} with ID: ${currentUser.id}\n`
-      );
-      sinceCounter = nextUserBatch[i].id;
-    }
-  }
+  await runningPromise;
+  await cleanUpDb();
 };
 
-runCrawler();
+// Listen signals
+process.on("SIGTERM", startShutdown);
+process.on("SIGINT", startShutdown);
+
 // // GET USERS
 // await octokit.request("GET /users");
 // // GET USER BY ID
