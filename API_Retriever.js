@@ -88,7 +88,14 @@ const getRepoFiles = async (repo) => {
       }
     );
   } catch (e) {
+    if (e.status === 404 || e.status === 409) {
+      console.warn(
+        `Empty Repository ${repo.owner}/${repo.repo}/${repo.branch}`
+      );
+      return undefined;
+    }
     console.warn("Error Encountered: ", e);
+    return undefined;
   }
   if (!response || response.status !== 200) {
     console.error("NON 200 Response", repo);
@@ -153,7 +160,7 @@ const disAllowedExtensions = [
   "webm",
 ];
 
-const processRepo = async (repoEntry) => {
+const processRepo = async (repoEntry, barHandle) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -161,29 +168,23 @@ const processRepo = async (repoEntry) => {
    * 3. For each file, store its values in the data base
    *
    */
-  const repoBar = new cliProgress.SingleBar(
-    {
-      clearOnComplete: true,
-      hideCursor: false,
-      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
-      autopadding: true,
-    },
-    cliProgress.Presets.shades_classic
-  );
   const repoFileStruct = await getRepoFiles(repoEntry);
   if (!repoFileStruct) {
-    console.error(
-      `COULDNT GET THE REPO STRUCTURE for ${repoEntry.owner}/${repoEntry.repo} @ ${repoEntry.branch}`
-    );
     return;
   }
 
   const numFiles = repoFileStruct.files.length;
 
-  repoBar.start(numFiles, 0, { repoName: repoEntry.repo });
+  const showBar = numFiles > 100;
+  let repoBar = undefined;
+  if (showBar) {
+    repoBar = barHandle.create(numFiles, 0, {
+      repoName: `${repoEntry.owner}/${repoEntry.repo}`,
+    });
+  }
 
   for (let i = 0; i < numFiles; i++) {
-    if (i % 10 === 0) {
+    if (i % 50 === 0 && showBar) {
       repoBar.update(i);
     }
 
@@ -205,7 +206,9 @@ const processRepo = async (repoEntry) => {
     procFile(fileExtension, fileData);
   }
   numProcessed += numFiles;
-  repoBar.stop();
+  if (showBar) {
+    barHandle.remove(repoBar);
+  }
 };
 
 const getUserRepos = async (userEntry) => {
@@ -226,26 +229,29 @@ const getUserRepos = async (userEntry) => {
   };
 };
 
-const processUser = async (userEntry, promiseQueue) => {
+const processUser = async (userEntry, promiseQueue, barHandle) => {
   /**
    * Steps:
    * 1. Get all user repos
    * 2. Process all repos
    * 3. Profit
    */
-  console.log(
-    `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
-  );
+  // console.log(
+  //   `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
+  // );
   const { owner, repos } = await getUserRepos(userEntry);
   const userPromises = [];
 
   for (let i = 0; i < repos.length; i++) {
     const { name, branch } = repos[i];
-    const repoPromise = processRepo({
-      owner: owner,
-      repo: name,
-      branch: branch,
-    });
+    const repoPromise = processRepo(
+      {
+        owner: owner,
+        repo: name,
+        branch: branch,
+      },
+      barHandle
+    );
     promiseQueue[`${userEntry.owner}/${name}`] = repoPromise;
     userPromises.push(repoPromise);
     repoPromise.finally(() => {
@@ -253,9 +259,9 @@ const processUser = async (userEntry, promiseQueue) => {
     });
   }
   Promise.allSettled(userPromises).finally(() => {
-    console.log(
-      `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
-    );
+    // console.log(
+    //   `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
+    // );
     updateCounter(userEntry.id);
   });
 };
@@ -291,22 +297,28 @@ const writeOutDb = () => {
 const runCrawler = async () => {
   const promiseQueue = {};
   let nextUserBatch = [];
+  const barHandle = new cliProgress.MultiBar(
+    {
+      hideCursor: false,
+      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
+      autopadding: true,
+      fps: 5,
+    },
+    cliProgress.Presets.shades_classic
+  );
+
   while (allowRunning) {
     await sleep(500);
-    console.log(
-      "Run Crawler Debugging",
-      Object.keys(promiseQueue).length,
-      nextUserBatch.length
-    );
     if (nextUserBatch.length === 0) {
       writeOutDb();
       nextUserBatch = await getUsers(sinceCounter);
     }
     if (fillableQueue(promiseQueue) && allowRunning) {
-      processUser(nextUserBatch.shift(), promiseQueue);
+      processUser(nextUserBatch.shift(), promiseQueue, barHandle);
     }
   }
 
+  console.log("Awating Completion of Currently Running Promises");
   await Promise.allSettled(Object.values(promiseQueue));
 };
 
