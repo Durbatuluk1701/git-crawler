@@ -237,21 +237,27 @@ const processUser = async (userEntry, promiseQueue) => {
     `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
   );
   const { owner, repos } = await getUserRepos(userEntry);
+  const userPromises = [];
 
   for (let i = 0; i < repos.length; i++) {
     const { name, branch } = repos[i];
-    promiseQueue[`${userEntry.owner}/${name}`] = processRepo({
+    const repoPromise = processRepo({
       owner: owner,
       repo: name,
       branch: branch,
-    }).finally(() => {
-      console.log(
-        `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
-      );
-      updateCounter(userEntry.id);
+    });
+    promiseQueue[`${userEntry.owner}/${name}`] = repoPromise;
+    userPromises.push(repoPromise);
+    repoPromise.finally(() => {
       delete promiseQueue[`${userEntry.owner}/${name}`];
     });
   }
+  Promise.allSettled(userPromises).finally(() => {
+    console.log(
+      `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
+    );
+    updateCounter(userEntry.id);
+  });
 };
 
 // RETURNS
@@ -289,7 +295,7 @@ const runCrawler = async () => {
     await sleep(500);
     console.log(
       "Run Crawler Debugging",
-      promiseQueue.length,
+      Object.keys(promiseQueue).length,
       nextUserBatch.length
     );
     if (nextUserBatch.length === 0) {
@@ -300,6 +306,8 @@ const runCrawler = async () => {
       processUser(nextUserBatch.shift(), promiseQueue);
     }
   }
+
+  await Promise.allSettled(Object.values(promiseQueue));
 };
 
 const runningPromise = runCrawler();
