@@ -15,6 +15,9 @@ let numProcessed = Number(fs.readFileSync(NumProcessedPath).toString());
 const SinceFilePath = "./SinceCounter";
 let sinceCounter = Number(fs.readFileSync(SinceFilePath).toString());
 
+const ErrorFile = "./Errors.txt";
+let errorLogging = "";
+
 let allowRunning = true;
 let alreadyEscaped = false;
 
@@ -64,14 +67,16 @@ const getFile = async (entry) => {
       }/${urlEncode.encode(entry.filePath)}`
     );
     if (response.status !== 200) {
-      console.error("ERROR non 200 response for file: ", entry);
+      errorLogging += `ERROR non 200 response for file: ${JSON.stringify(
+        entry
+      )}\n`;
       return "";
     }
     const data = await response.text();
     // TODO: Need to check for errors here
     return data;
   } catch (e) {
-    console.error(e);
+    errorLogging += `${e}\n`;
     return "";
   }
 };
@@ -89,16 +94,14 @@ const getRepoFiles = async (repo) => {
     );
   } catch (e) {
     if (e.status === 404 || e.status === 409) {
-      console.warn(
-        `Empty Repository ${repo.owner}/${repo.repo}/${repo.branch}`
-      );
+      errorLogging += `Empty Repository ${repo.owner}/${repo.repo}/${repo.branch}\n`;
       return undefined;
     }
-    console.warn("Error Encountered: ", e);
+    errorLogging += `Error Encountered: ${JSON.stringify(e)}\n`;
     return undefined;
   }
   if (!response || response.status !== 200) {
-    console.error("NON 200 Response", repo);
+    errorLogging += `NON 200 Response: ${JSON.stringify(repo)}\n`;
     return undefined;
   }
   response.data.tree.forEach((treeEntry) => {
@@ -292,6 +295,9 @@ const writeOutDb = () => {
   fs.writeFileSync(DbFilePath, JSON.stringify(currentDatabase, null, 2));
   fs.writeFileSync(SinceFilePath, sinceCounter.toString());
   fs.writeFileSync(NumProcessedPath, numProcessed.toString());
+  fs.writeFileSync(ErrorFile, errorLogging, { flag: "a" });
+  // Clear out the running error log
+  errorLogging = "";
 };
 
 const runCrawler = async () => {
@@ -325,6 +331,7 @@ const runCrawler = async () => {
 const runningPromise = runCrawler();
 
 // Function to handle termination signals
+
 const cleanUpDb = async () => {
   console.log(
     `\nReceived termination signal.
