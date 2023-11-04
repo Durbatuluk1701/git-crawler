@@ -13,12 +13,12 @@ const NumProcessedPath = "./NumProcessed";
 let numProcessed = Number(fs.readFileSync(NumProcessedPath).toString());
 
 const SinceFilePath = "./SinceCounter";
-let sinceCounter = Number(fs.readFileSync(SinceFilePath).toString());
+let sinceCounter = fs.readFileSync(SinceFilePath).toString();
 
 let allowRunning = true;
 let alreadyEscaped = false;
 
-const updateCounter = (newVal: number) => {
+const updateCounter = (newVal) => {
   if (sinceCounter < newVal) {
     sinceCounter = newVal;
   }
@@ -27,7 +27,7 @@ const updateCounter = (newVal: number) => {
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
-const strToAscii = (text: string) => {
+const strToAscii = (text) => {
   const ret = [];
   for (let i = 0; i < text.length; i++) {
     if (text.charCodeAt(i) < 128) {
@@ -37,7 +37,7 @@ const strToAscii = (text: string) => {
   return ret;
 };
 
-const procFile = (fileExtension: string, fileText: string) => {
+const procFile = (fileExtension, fileText) => {
   const newStr = strToAscii(fileText);
   // Making sure we have a database setup for all extensions
   if (!currentDatabase[fileExtension]) {
@@ -51,42 +51,28 @@ const procFile = (fileExtension: string, fileText: string) => {
   currentDatabase[fileExtension] = fileExtDb;
 };
 
-const sleep = (ms: number) => {
+const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-const getFile = async (entry: {
-  owner: string;
-  repo: string;
-  branch: string;
-  filePath: string;
-}) => {
+const getFile = async (entry) => {
   // await sleep(250);
-  try {
-    const response = await fetch(
-      `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${
-        entry.branch
-      }/${urlEncode.encode(entry.filePath)}`
-    );
-    if (response.status !== 200) {
-      console.error("ERROR non 200 response for file: ", entry);
-      return "";
-    }
-    const data = await response.text();
-    // TODO: Need to check for errors here
-    return data;
-  } catch (e) {
-    console.error(e);
+  const response = await fetch(
+    `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${
+      entry.branch
+    }/${urlEncode.encode(entry.filePath)}`
+  );
+  if (response.status !== 200) {
+    console.error("ERROR non 200 response for file: ", entry);
     return "";
   }
+  const data = await response.text();
+  // TODO: Need to check for errors here
+  return data;
 };
 
-const getRepoFiles = async (repo: {
-  branch: string;
-  owner: string;
-  repo: string;
-}) => {
-  let returnedfiles: any[] = [];
+const getRepoFiles = async (repo) => {
+  let returnedfiles = [];
   let response = undefined;
   try {
     response = await octokit.request(
@@ -103,7 +89,7 @@ const getRepoFiles = async (repo: {
     console.error("NON 200 Response", repo);
     return undefined;
   }
-  response.data.tree.forEach((treeEntry: { type: string; path: string }) => {
+  response.data.tree.forEach((treeEntry) => {
     if (treeEntry.type === "blob") {
       returnedfiles.push(treeEntry.path);
     }
@@ -116,7 +102,7 @@ const getRepoFiles = async (repo: {
   };
 };
 
-const getFileExtension = (fileName: string) => {
+const getFileExtension = (fileName) => {
   // Generating the extension is actually troublesome
   // We first need to make sure we are not directory nested
   // Then we can get the first dot
@@ -162,11 +148,7 @@ const disAllowedExtensions = [
   "webm",
 ];
 
-const processRepo = async (repoEntry: {
-  owner: string;
-  repo: string;
-  branch: string;
-}) => {
+const processRepo = async (repoEntry, multiBarHandle) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -174,15 +156,6 @@ const processRepo = async (repoEntry: {
    * 3. For each file, store its values in the data base
    *
    */
-  const repoBar = new cliProgress.SingleBar(
-    {
-      clearOnComplete: true,
-      hideCursor: false,
-      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
-      autopadding: true,
-    },
-    cliProgress.Presets.shades_classic
-  );
   const repoFileStruct = await getRepoFiles(repoEntry);
   if (!repoFileStruct) {
     console.error(
@@ -193,11 +166,13 @@ const processRepo = async (repoEntry: {
 
   const numFiles = repoFileStruct.files.length;
 
-  repoBar.start(numFiles, 0, { repoName: repoEntry.repo });
+  const newBar = multiBarHandle.create(numFiles, 0);
+
+  newBar.update(0, { repoName: repoEntry.repo });
 
   for (let i = 0; i < numFiles; i++) {
     if (i % 10 === 0) {
-      repoBar.update(i);
+      newBar.update(i);
     }
 
     const filePath = repoFileStruct.files[i];
@@ -215,30 +190,23 @@ const processRepo = async (repoEntry: {
       branch: repoFileStruct.branch,
       filePath: filePath,
     });
-    procFile(fileExtension, fileData);
+    procFile(fileExtension, fileData, currentDatabase);
   }
   numProcessed += numFiles;
-  repoBar.stop();
+  newBar.update(numFiles);
 };
 
-const getUserRepos = async (userEntry: { owner: string }) => {
-  let returnedRepos: { name: string; branch: string }[] = [];
+const getUserRepos = async (userEntry) => {
+  let returnedRepos = [];
   const response = await octokit.request(`GET /users/${userEntry.owner}/repos`);
-  response.data.forEach(
-    (repoStruct: {
-      private: any;
-      fork: any;
-      name: string;
-      default_branch: string;
-    }) => {
-      if (!repoStruct.private && !repoStruct.fork) {
-        returnedRepos.push({
-          name: repoStruct.name,
-          branch: repoStruct.default_branch,
-        });
-      }
+  response.data.forEach((repoStruct) => {
+    if (!repoStruct.private && !repoStruct.fork) {
+      returnedRepos.push({
+        name: repoStruct.name,
+        branch: repoStruct.default_branch,
+      });
     }
-  );
+  });
   // TODO: Error handling
   return {
     owner: userEntry.owner,
@@ -246,10 +214,7 @@ const getUserRepos = async (userEntry: { owner: string }) => {
   };
 };
 
-const processUser = async (
-  userEntry: { owner: string; id: number },
-  promiseQueue: { [x: string]: any }
-) => {
+const processUser = async (userEntry) => {
   /**
    * Steps:
    * 1. Get all user repos
@@ -260,65 +225,69 @@ const processUser = async (
     `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
   );
   const { owner, repos } = await getUserRepos(userEntry);
+  const promiseList = [];
+
+  const multiBar = new cliProgress.MultiBar(
+    {
+      clearOnComplete: true,
+      hideCursor: false,
+      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
+      autopadding: true,
+    },
+    cliProgress.Presets.shades_classic
+  );
 
   for (let i = 0; i < repos.length; i++) {
     const { name, branch } = repos[i];
-    promiseQueue[`${userEntry.owner}/${name}`] = processRepo({
-      owner: owner,
-      repo: name,
-      branch: branch,
-    }).finally(() => {
-      console.log(
-        `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
-      );
-      updateCounter(userEntry.id);
-      delete promiseQueue[`${userEntry.owner}/${name}`];
-    });
+    promiseList.push(
+      processRepo(
+        {
+          owner: owner,
+          repo: name,
+          branch: branch,
+        },
+        multiBar
+      )
+    );
   }
+  await Promise.all(promiseList);
+  multiBar.stop();
 };
 
 // RETURNS
 // [listOfOrganizations, ID of last org in list (so we can not dup)]
-const getOrgs = async (since: any) => {
+const getOrgs = async (since) => {
   const response = await octokit.request(`GET /organizations?since=${since}`);
   // todo: error handling
-  return response.data.map((val: { login: string; id: any }) => {
+  return response.data.map((val) => {
     return { owner: val.login, id: val.id };
   });
 };
 
-const getUsers = async (since: number) => {
+const getUsers = async (since) => {
   const response = await octokit.request(`GET /users?since=${since}`);
   // todo: error handling
-  return response.data.map((val: { login: string; id: number }) => {
+  return response.data.map((val) => {
     return { owner: val.login, id: val.id };
   });
-};
-
-const fillableQueue = (promiseQueue: any) => {
-  return Object.keys(promiseQueue).length > 25;
 };
 
 const runCrawler = async () => {
-  const promiseQueue: any = {};
-  let nextUserBatch = [];
+  const promiseQueue = [];
   while (allowRunning) {
-    if (nextUserBatch.length === 0) {
-      nextUserBatch = await getUsers(sinceCounter);
-    }
-    if (fillableQueue(promiseQueue) && allowRunning) {
-      processUser(nextUserBatch.shift(), promiseQueue);
+    const nextUserBatch = await getUsers(sinceCounter);
+    for (let i = 0; i < nextUserBatch.length && allowRunning; i++) {
+      const currentUser = nextUserBatch[i];
+      await processUser(currentUser);
+      console.log(
+        `Processed User: ${currentUser.owner} with ID: ${currentUser.id}\n`
+      );
+      sinceCounter = nextUserBatch[i].id;
     }
   }
 };
 
 const runningPromise = runCrawler();
-
-const writeOutDb = () => {
-  fs.writeFileSync(DbFilePath, JSON.stringify(currentDatabase, null, 2));
-  fs.writeFileSync(SinceFilePath, sinceCounter.toString());
-  fs.writeFileSync(NumProcessedPath, numProcessed.toString());
-};
 
 // Function to handle termination signals
 const cleanUpDb = async () => {
@@ -330,7 +299,10 @@ const cleanUpDb = async () => {
   );
 
   try {
-    writeOutDb();
+    fs.writeFileSync(DbFilePath, JSON.stringify(currentDatabase, null, 2));
+    fs.writeFileSync(SinceFilePath, sinceCounter.toString());
+    fs.writeFileSync(NumProcessedPath, numProcessed.toString());
+
     process.exit(0);
   } catch (err) {
     console.error("Error occurred during cleanup:", err);
