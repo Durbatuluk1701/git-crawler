@@ -21,12 +21,6 @@ let errorLogging = "";
 let allowRunning = true;
 let alreadyEscaped = false;
 
-const updateCounter = (newVal) => {
-  if (sinceCounter < newVal) {
-    sinceCounter = newVal;
-  }
-};
-
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
@@ -81,6 +75,22 @@ const getFile = async (entry) => {
   }
 };
 
+let unknownErrorCounter = 0;
+
+const manageUnknownError = () => {
+  if (unknownErrorCounter > 10) {
+    console.error(
+      `Catastrophic Failure!!!\nEncountered too many unknown errors too quickly, attempting to save work. \n\nCheck log "${ErrorFile}" for more details`
+    );
+    writeOutDb();
+    process.exit(3);
+  }
+  unknownErrorCounter++;
+  setTimeout(() => {
+    unknownErrorCounter--;
+  }, 1000);
+};
+
 const getRepoFiles = async (repo) => {
   let returnedfiles = [];
   let response = undefined;
@@ -102,6 +112,7 @@ const getRepoFiles = async (repo) => {
   }
   if (!response || response.status !== 200) {
     errorLogging += `NON 200 Response: ${JSON.stringify(repo)}\n`;
+    manageUnknownError();
     return undefined;
   }
   response.data.tree.forEach((treeEntry) => {
@@ -262,10 +273,7 @@ const processUser = async (userEntry, promiseQueue, barHandle) => {
     });
   }
   Promise.allSettled(userPromises).finally(() => {
-    // console.log(
-    //   `Processed User: ${userEntry.owner} with ID: ${userEntry.id}\n`
-    // );
-    updateCounter(userEntry.id);
+    sinceCounter = sinceCounter > userEntry.id ? sinceCounter : userEntry.id;
   });
 };
 
@@ -280,7 +288,9 @@ const getOrgs = async (since) => {
 };
 
 const getUsers = async (since) => {
-  const response = await octokit.request(`GET /users?since=${since}`);
+  const response = await octokit.request(
+    `GET /users?since=${since}&per_page=100`
+  );
   // todo: error handling
   return response.data.map((val) => {
     return { owner: val.login, id: val.id };
@@ -288,7 +298,7 @@ const getUsers = async (since) => {
 };
 
 const fillableQueue = (promiseQueue) => {
-  return Object.keys(promiseQueue).length < 25;
+  return Object.keys(promiseQueue).length < 15;
 };
 
 const writeOutDb = () => {
@@ -302,6 +312,8 @@ const writeOutDb = () => {
 
 const runCrawler = async () => {
   const promiseQueue = {};
+
+  let speculativeCounter = sinceCounter;
   let nextUserBatch = [];
   const barHandle = new cliProgress.MultiBar(
     {
@@ -317,10 +329,13 @@ const runCrawler = async () => {
     await sleep(500);
     if (nextUserBatch.length === 0) {
       writeOutDb();
-      nextUserBatch = await getUsers(sinceCounter);
+      nextUserBatch = await getUsers(speculativeCounter);
     }
     if (fillableQueue(promiseQueue) && allowRunning) {
-      processUser(nextUserBatch.shift(), promiseQueue, barHandle);
+      const nextUser = nextUserBatch.shift();
+      speculativeCounter =
+        speculativeCounter > nextUser.id ? speculativeCounter : nextUser.id;
+      processUser(nextUser, promiseQueue, barHandle);
     }
   }
 
