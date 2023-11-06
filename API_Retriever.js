@@ -273,7 +273,7 @@ const processUser = async (userEntry, promiseQueue, barHandle) => {
     });
   }
   Promise.allSettled(userPromises).finally(() => {
-    errorLogging += `Processed User ${owner} with ID: ${userEntry.id}`;
+    errorLogging += `Processed User ${owner} with ID: ${userEntry.id}]\n`;
     sinceCounter = sinceCounter > userEntry.id ? sinceCounter : userEntry.id;
   });
 };
