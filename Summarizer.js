@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const DbFilePath = "./DB.json";
+const OutputValueDb = "./SummaryVals.json";
 const OutputDb = "./Summary.json";
 
 const db = JSON.parse(fs.readFileSync(DbFilePath));
@@ -176,6 +177,16 @@ function sortObjectKeys(obj) {
   return sortedObject;
 }
 
+function sortObjectByNumericValue(obj) {
+  const sortedKeys = Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
+  const sortedObject = Object.fromEntries(
+    sortedKeys.map((key) => [key, obj[key]])
+  );
+  return sortedObject;
+}
+
 outDb = sortObjectKeys(outDb);
+outDb2 = sortObjectByNumericValue(outDb);
 
 fs.writeFileSync(OutputDb, JSON.stringify(outDb, null, 2));
+fs.writeFileSync(OutputValueDb, JSON.stringify(outDb2, null, 2));
