@@ -21,6 +21,16 @@ let errorLogging = "";
 let allowRunning = true;
 let alreadyEscaped = false;
 
+const barHandle = new cliProgress.MultiBar(
+  {
+    hideCursor: false,
+    format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
+    autopadding: true,
+    fps: 5,
+  },
+  cliProgress.Presets.shades_classic
+);
+
 // SETUP API
 const octokit = new Octokit.Octokit({ auth: `${keyValue}` });
 
@@ -355,7 +365,7 @@ const allowedExtensions = [
   "sol",
 ];
 
-const processRepo = async (repoEntry, barHandle) => {
+const processRepo = async (repoEntry) => {
   /**
    * Steps:
    * 1. Get all the files in the repo
@@ -424,29 +434,23 @@ const getUserRepos = async (userEntry) => {
   };
 };
 
-const processUser = async (userEntry, promiseQueue, barHandle) => {
+const processUser = async (userEntry, promiseQueue) => {
   /**
    * Steps:
    * 1. Get all user repos
    * 2. Process all repos
    * 3. Profit
    */
-  // console.log(
-  //   `Starting Processing of User: ${userEntry.owner} with ID: ${userEntry.id}`
-  // );
   const { owner, repos } = await getUserRepos(userEntry);
   const userPromises = [];
 
   for (let i = 0; i < repos.length; i++) {
     const { name, branch } = repos[i];
-    const repoPromise = processRepo(
-      {
-        owner: owner,
-        repo: name,
-        branch: branch,
-      },
-      barHandle
-    );
+    const repoPromise = processRepo({
+      owner: owner,
+      repo: name,
+      branch: branch,
+    });
     promiseQueue[`${userEntry.owner}/${name}`] = repoPromise;
     userPromises.push(repoPromise);
     repoPromise.finally(() => {
@@ -497,15 +501,6 @@ const runCrawler = async () => {
 
   let speculativeCounter = sinceCounter;
   let nextUserBatch = [];
-  const barHandle = new cliProgress.MultiBar(
-    {
-      hideCursor: false,
-      format: "Progress [{bar}] | {repoName} | ETA: {eta}s | {value}/{total}",
-      autopadding: true,
-      fps: 5,
-    },
-    cliProgress.Presets.shades_classic
-  );
 
   while (allowRunning) {
     await sleep(500);
@@ -517,11 +512,11 @@ const runCrawler = async () => {
       const nextUser = nextUserBatch.shift();
       speculativeCounter =
         speculativeCounter > nextUser.id ? speculativeCounter : nextUser.id;
-      processUser(nextUser, promiseQueue, barHandle);
+      processUser(nextUser, promiseQueue);
     }
   }
 
-  console.log("Awating Completion of Currently Running Promises");
+  barHandle.log("Awating Completion of Currently Running Promises\n");
   await Promise.allSettled(Object.values(promiseQueue));
 };
 
@@ -530,11 +525,11 @@ const runningPromise = runCrawler();
 // Function to handle termination signals
 
 const cleanUpDb = async () => {
-  console.log(
+  barHandle.log(
     `\nReceived termination signal.
     \tWriting database to ${DbFilePath}
     \tNumProcessed to ${NumProcessedPath}
-    \tSinceCounter to ${SinceFilePath}`
+    \tSinceCounter to ${SinceFilePath}\n`
   );
 
   try {
@@ -548,11 +543,11 @@ const cleanUpDb = async () => {
 
 const startShutdown = async () => {
   if (alreadyEscaped) {
-    console.log("Shutdown Forced... Writeback not guaranteed!");
+    barHandle.log("Shutdown Forced... Writeback not guaranteed!");
     myExit(2);
   }
   allowRunning = false;
-  console.log(
+  barHandle.log(
     "Shutdown Starting... Please be Patient as all remaining requests are handled"
   );
 
