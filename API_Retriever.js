@@ -74,7 +74,7 @@ const sleep = (ms) => {
 };
 
 const getFile = async (entry) => {
-  // await sleep(250);
+  await sleep(25);
   try {
     const response = await fetch(
       `https://raw.githubusercontent.com/${entry.owner}/${entry.repo}/${
@@ -93,6 +93,7 @@ const getFile = async (entry) => {
     return data;
   } catch (e) {
     errorLogging += `${e}\n`;
+    manageUnknownError();
     return "";
   }
 };
@@ -102,13 +103,19 @@ const decrementCounter = () => {
   unknownErrorCounter = unknownErrorCounter - 1;
 };
 
+const myExit = (code) => {
+  // Bell to tell we are done
+  console.log("\x07");
+  process.exit(code);
+};
+
 const manageUnknownError = () => {
   if (unknownErrorCounter > 10) {
     console.error(
       `Catastrophic Failure!!!\nEncountered too many unknown errors too quickly, attempting to save work. \n\nCheck log "${ErrorFile}" for more details`
     );
     writeOutDb();
-    process.exit(3);
+    myExit(3);
   }
   unknownErrorCounter = unknownErrorCounter + 1;
   // 10 Errors in 20 seconds => catastrophic failure
@@ -532,17 +539,17 @@ const cleanUpDb = async () => {
 
   try {
     writeOutDb();
-    process.exit(0);
+    myExit(0);
   } catch (err) {
     console.error("Error occurred during cleanup:", err);
-    process.exit(1);
+    myExit(1);
   }
 };
 
 const startShutdown = async () => {
   if (alreadyEscaped) {
     console.log("Shutdown Forced... Writeback not guaranteed!");
-    process.exit(2);
+    myExit(2);
   }
   allowRunning = false;
   console.log(
