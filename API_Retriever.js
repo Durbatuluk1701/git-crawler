@@ -35,16 +35,37 @@ const strToAscii = (text) => {
 };
 
 const procFile = (fileExtension, fileText) => {
+  const WINDOW_SIZE = 3;
+
   const newStr = strToAscii(fileText);
   // Making sure we have a database setup for all extensions
   if (!currentDatabase[fileExtension]) {
     currentDatabase[fileExtension] = {};
   }
   const fileExtDb = currentDatabase[fileExtension];
-  newStr.forEach((char) => {
-    const currentVal = fileExtDb[char];
-    fileExtDb[char] = currentVal ? currentVal + 1 : 1;
-  });
+  for (let i = 0; i < newStr.length; i++) {
+    const char = newStr[i];
+    const currentSubDb = fileExtDb[char] ?? {};
+    /**
+     * This is rather complex,
+     * We want to have the WINDOW_SIZE previous chars tracked
+     * As well as the current char [0]
+     */
+    for (let j = -WINDOW_SIZE; j <= 0; j++) {
+      if (!currentSubDb[j]) {
+        currentSubDb[j] = {};
+      }
+      const trueInd = i + j;
+      // We must make sure that i + j > 0, otherwise nothing previous
+      if (trueInd > 0) {
+        const subChar = newStr[trueInd];
+        const curVal = currentSubDb[j][subChar];
+        currentSubDb[j][subChar] = curVal ? curVal + 1 : 1;
+      }
+    }
+
+    fileExtDb[char] = currentSubDb;
+  }
   currentDatabase[fileExtension] = fileExtDb;
 };
 
@@ -76,6 +97,9 @@ const getFile = async (entry) => {
 };
 
 let unknownErrorCounter = 0;
+const decrementCounter = () => {
+  unknownErrorCounter = unknownErrorCounter - 1;
+};
 
 const manageUnknownError = () => {
   if (unknownErrorCounter > 10) {
@@ -85,10 +109,9 @@ const manageUnknownError = () => {
     writeOutDb();
     process.exit(3);
   }
-  unknownErrorCounter++;
-  setTimeout(() => {
-    unknownErrorCounter--;
-  }, 1000);
+  unknownErrorCounter = unknownErrorCounter + 1;
+  // 10 Errors in 20 seconds => catastrophic failure
+  setTimeout(decrementCounter, 20000);
 };
 
 const getRepoFiles = async (repo) => {
