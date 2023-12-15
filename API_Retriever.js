@@ -85,6 +85,7 @@ const getFile = async (entry) => {
       errorLogging += `ERROR non 200 response for file: ${JSON.stringify(
         entry
       )}\n`;
+      manageUnknownError();
       return "";
     }
     const data = await response.text();
