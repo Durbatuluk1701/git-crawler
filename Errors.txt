@@ -407,3 +407,716 @@ Processed User therubymug with ID: 389
 Processed User revans with ID: 394
 Processed User jasonherald with ID: 392
 Processed User bruno with ID: 393
+Processed User trankas with ID: 396
+Processed User jameshill with ID: 395
+Processed User esaul with ID: 400
+Empty Repository trevorturk/falcon-debug/main
+Processed User mattallen with ID: 398
+Empty Repository dgoodlad/crater/master
+Processed User dgoodlad with ID: 399
+Processed User waqas with ID: 407
+Processed User antonithock with ID: 409
+Processed User svrishi with ID: 403
+Processed User cmer with ID: 412
+Processed User trotter with ID: 413
+Processed User timburks with ID: 405
+Processed User mattswasey with ID: 418
+Empty Repository tandibar/action_mailer_test_via_smtp/master
+Processed User kevinansfield with ID: 415
+Processed User dpetersen with ID: 408
+Empty Repository tandibar/ampel/master
+Processed User frankbolero with ID: 421
+Processed User fivethreeo with ID: 410
+Processed User dudleyf with ID: 414
+Processed User trevorturk with ID: 402
+Processed User rtomayko with ID: 404
+Processed User gotascii with ID: 419
+Processed User xraid with ID: 426
+Processed User dfugere with ID: 424
+Processed User crafterm with ID: 397
+Empty Repository gaveen/gaveen/main
+Processed User gaveen with ID: 406
+Processed User wijet with ID: 427
+Empty Repository james/culture/master
+Processed User nz with ID: 430
+Processed User allan with ID: 432
+Processed User tkofol with ID: 434
+Processed User tynino with ID: 431
+Processed User rozza with ID: 420
+Processed User jimmy with ID: 436
+Empty Repository antunderwood/assembly/main
+Processed User foca with ID: 437
+Processed User parabuzzle with ID: 428
+Processed User antunderwood with ID: 423
+Processed User jduff with ID: 441
+Processed User norbert with ID: 440
+Empty Repository damienmckenna/contact-demo-app/master
+Processed User damienmckenna with ID: 429
+Processed User gpaul with ID: 442
+Processed User dysinger with ID: 447
+Processed User jarkko with ID: 439
+Processed User pablete with ID: 443
+Empty Repository awilliam/test/master
+Processed User mathie with ID: 438
+Processed User trey with ID: 435
+Processed User avalade with ID: 449
+Processed User djdarkbeat with ID: 451
+Processed User intabulas with ID: 448
+Processed User shadowmaru with ID: 422
+Empty Repository rks/sample-empty-repository/main
+Processed User rks with ID: 454
+ERROR non 200 response for file: {"owner":"ljsc","repo":"Ticky","branch":"master","filePath":"app/components/marionette/src/marionette.helpers.js"}
+ERROR non 200 response for file: {"owner":"awilliam","repo":"qemu","branch":"master","filePath":"hw/ppc4xx.h"}
+ERROR non 200 response for file: {"owner":"bscofield","repo":"movielist","branch":"main","filePath":"Chapter03/movielist/vendor/rails/railties/environments/test.rb"}
+ERROR non 200 response for file: {"owner":"bscofield","repo":"movielist","branch":"main","filePath":"Chapter03/movielist/vendor/rails/railties/helpers/application.rb"}
+ERROR non 200 response for file: {"owner":"ljsc","repo":"Ticky","branch":"master","filePath":"app/components/marionette/src/marionette.region.js"}
+ERROR non 200 response for file: {"owner":"james","repo":"freefall","branch":"master","filePath":"vendor/rails/activerecord/test/cases/ar_schema_test.rb"}
+ERROR non 200 response for file: {"owner":"chriskaukis","repo":"cowboy_courses","branch":"master","filePath":"app/jobs/courses_scraper_job.rb"}
+ERROR non 200 response for file: {"owner":"james","repo":"freefall","branch":"master","filePath":"vendor/rails/activerecord/test/cases/associations/callbacks_test.rb"}
+ERROR non 200 response for file: {"owner":"mokolabs","repo":"galacticaa","branch":"main","filePath":"public/tags/macintosh/page/2/index.html"}
+ERROR non 200 response for file: {"owner":"luigi","repo":"defogger","branch":"master","filePath":"vendor/rails/activerecord/lib/active_record/timestamp.rb"}
+ERROR non 200 response for file: {"owner":"bscofield","repo":"movielist","branch":"main","filePath":"Chapter03/movielist/vendor/rails/railties/html/422.html"}
+ERROR non 200 response for file: {"owner":"caffo","repo":"appsales-mobile","branch":"master","filePath":"AppSalesMobile/Classes/HelpBrowser.m"}
+Processed User winson with ID: 462
+Processed User timperrett with ID: 458
+Processed User bernd with ID: 461
+Processed User voodootikigod with ID: 459
+Processed User kwe with ID: 460
+Processed User cblackburn with ID: 463
+Processed User chriskaukis with ID: 455
+Processed User brandon-beacher with ID: 469
+Empty Repository zh/banago/master
+Processed User zh with ID: 468
+Processed User cbowns with ID: 474
+Processed User emanuel with ID: 465
+Processed User iwarshak with ID: 471
+Processed User dustym with ID: 477
+Empty Repository eric/activerecord-mysql2-adapter/master
+Processed User eric with ID: 470
+Processed User cdwillie76 with ID: 466
+Processed User mando with ID: 467
+Processed User kunstreich with ID: 464
+Processed User aussiegeek with ID: 475
+Processed User benjamin with ID: 478
+Empty Repository jackdempsey/basic_shell/master
+Processed User zacheryph with ID: 476
+Processed User msimkins with ID: 487
+Processed User JESii with ID: 486
+Empty Repository jackdempsey/.oh-my-zsh/master
+Processed User jackdempsey with ID: 479
+Processed User angelo with ID: 488
+Processed User wrenchlabs with ID: 489
+Processed User jfcouture with ID: 490
+Processed User blahutka with ID: 480
+Processed User choonkeat with ID: 473
+Empty Repository garyharan/aoc_2022_elixir/main
+Processed User mreid with ID: 484
+Processed User santry with ID: 496
+Processed User nakajima with ID: 483
+Processed User spencer with ID: 495
+Empty Repository garyharan/Delete-me/master
+Empty Repository saimonmoore/blusica/master
+Processed User saimonmoore with ID: 494
+Processed User kjf with ID: 498
+Empty Repository ctran/ctran/main
+Processed User ctran with ID: 491
+Processed User tfwright with ID: 501
+Empty Repository judofyr/0/master
+Empty Repository urubatan/build_dashboard/master
+Processed User urubatan with ID: 497
+Processed User scoop with ID: 502
+Processed User rob with ID: 503
+Processed User sphire with ID: 508
+Processed User melo with ID: 485
+Processed User garyharan with ID: 492
+Empty Repository judofyr/c/master
+Processed User mkhl with ID: 505
+Empty Repository judofyr/adminati/master
+Processed User judofyr with ID: 499
+Processed User kieranj with ID: 511
+Processed User AlexJWayne with ID: 482
+Processed User speck with ID: 514
+Processed User pd with ID: 510
+Processed User donpinkster with ID: 516
+Processed User rwj-promed with ID: 517
+Processed User dbr with ID: 509
+Processed User mehdi with ID: 520
+Processed User shinzui with ID: 519
+Processed User leemhenson with ID: 515
+Empty Repository mansfiem/try_git/master
+Processed User brett with ID: 523
+Processed User mansfiem with ID: 521
+Processed User chrisabad-zz with ID: 481
+Processed User dbcm with ID: 522
+Processed User pontus with ID: 518
+Empty Repository atharh/dotfiles/master
+Processed User atharh with ID: 513
+Processed User sudara with ID: 472
+Processed User marmbrus with ID: 527
+Processed User jendrik with ID: 526
+Processed User n0ha with ID: 531
+Processed User auser with ID: 529
+Error Encountered: {"name":"HttpError","status":451,"response":{"url":"https://api.github.com/repos/ericallam/breadwallet-ios/git/trees/master?recursive=1","status":451,"headers":{"access-control-allow-origin":"*","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset","content-length":"189","content-security-policy":"default-src 'none'","content-type":"application/json; charset=utf-8","date":"Fri, 15 Dec 2023 21:44:37 GMT","github-authentication-token-expiration":"2023-12-21 16:38:48 UTC","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","server":"GitHub.com","strict-transport-security":"max-age=31536000; includeSubdomains; preload","vary":"Accept-Encoding, Accept, X-Requested-With","x-accepted-oauth-scopes":"","x-content-type-options":"nosniff","x-frame-options":"deny","x-github-api-version-selected":"2022-11-28","x-github-media-type":"github.v3; format=json","x-github-request-id":"CC5C:0B98:3F66962:8326B72:657CC8C5","x-oauth-scopes":"repo, write:discussion","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4087","x-ratelimit-reset":"1702679723","x-ratelimit-resource":"core","x-ratelimit-used":"913","x-xss-protection":"0"},"data":{"message":"Repository access blocked","block":{"reason":"dmca","created_at":"2020-07-10T17:50:46Z","html_url":"https://github.com/github/dmca/blob/master/2020/07/2020-07-09-lineto-14.md"}}},"request":{"method":"GET","url":"https://api.github.com/repos/ericallam/breadwallet-ios/git/trees/master?recursive=1","headers":{"accept":"application/vnd.github.v3+json","user-agent":"octokit.js/3.1.1 octokit-core.js/5.0.1 Node.js/20.9.0 (win32; x64)","authorization":"token [REDACTED]"},"request":{"retryCount":4}}}
+Processed User mwilliams with ID: 525
+Empty Repository ericallam/basic-starter-100k/main
+Processed User hughbien with ID: 532
+Processed User skimua with ID: 537
+Processed User steveh with ID: 535
+Processed User fusedevice with ID: 539
+Empty Repository codafoo/try_git/master
+Processed User jpease with ID: 536
+Processed User NaPs with ID: 540
+Empty Repository ericallam/AzureXcodeCodeSignError/master
+Processed User ericallam with ID: 534
+Processed User codafoo with ID: 538
+Processed User schelcj with ID: 545
+Processed User etng with ID: 547
+Processed User brainvat with ID: 543
+Processed User vishnugopal with ID: 533
+Processed User aroth with ID: 542
+Processed User drudru with ID: 546
+Processed User njackson with ID: 551
+Empty Repository bct/is-easy-nat/master
+Processed User bct with ID: 548
+Processed User hallski with ID: 541
+Processed User ipvideomarketinfo with ID: 555
+Processed User Sutto with ID: 553
+Processed User fauxparse with ID: 530
+Processed User nmerouze with ID: 506
+Processed User Zelnox with ID: 493
+Processed User critzjm with ID: 558
+Empty Repository marvin/go-cms/master
+Processed User jhill with ID: 561
+Empty Repository mbbx6spp/capistrano-newrelic-deploy/master
+Empty Repository AndrewO/andrewo.github.io/master
+Processed User AndrewO with ID: 550
+Processed User amoeba with ID: 563
+Empty Repository marvin/cpp-kassenbuch/master
+Processed User marvin with ID: 557
+Processed User ook with ID: 559
+Processed User nmeans with ID: 568
+Empty Repository mbbx6spp/chef-newrelic/master
+Processed User mbbx6spp with ID: 564
+Processed User jaikoo with ID: 570
+Processed User alexkwolfe with ID: 569
+Processed User japj with ID: 512
+Processed User jdp with ID: 574
+Empty Repository BJClark/formable/master
+Processed User BJClark with ID: 566
+Processed User davie with ID: 573
+Processed User JJ with ID: 500
+Processed User franc with ID: 507
+Empty Repository mikeal/anime.js/master
+Processed User rmanalan with ID: 549
+Processed User JohnArgh with ID: 581
+Processed User usergenic with ID: 578
+Empty Repository captproton/20210818/master
+Processed User purzelrakete with ID: 567
+Processed User komapa with ID: 577
+Processed User Shazburg with ID: 580
+Processed User wiremine with ID: 582
+Empty Repository ludo/civic-engines-translations/master
+Processed User edallen with ID: 586
+Processed User jarib with ID: 572
+Empty Repository arisbartee/git---github.com-angular-ui-angular-ui/master
+Processed User arisbartee with ID: 585
+Processed User hatch with ID: 587
+Processed User nickpad with ID: 588
+Processed User wineq with ID: 592
+Processed User joaovitor with ID: 589
+Processed User natedaiger with ID: 595
+Processed User fd with ID: 591
+Processed User jredville with ID: 524
+Processed User daaku with ID: 593
+Processed User jmhodges with ID: 598
+Processed User pfig with ID: 594
+Empty Repository probablycorey/empty-empty/master
+Processed User buru with ID: 600
+Processed User nickel with ID: 599
+Processed User jstetser with ID: 603
+Processed User wdperson with ID: 601
+Processed User chromakey-io with ID: 602
+Processed User jesseproudman with ID: 606
+Processed User ianloic with ID: 604
+Empty Repository probablycorey/equanimous-octo-wookie/master
+Processed User probablycorey with ID: 596
+Processed User mikeal with ID: 579
+Processed User fantom with ID: 607
+Processed User emilevdb with ID: 609
+Processed User scottymac with ID: 576
+Processed User bansalakhil with ID: 605
+Processed User wpiekutowski with ID: 612
+Processed User andykent with ID: 614
+Processed User lukeredpath with ID: 613
+Processed User h-lame with ID: 608
+Processed User jeremyboles with ID: 618
+Processed User mulder with ID: 617
+Processed User aemadrid with ID: 616
+Processed User moorbrook with ID: 619
+Processed User humandoing with ID: 620
+Processed User george with ID: 621
+Processed User chriskilmer with ID: 624
+Processed User dramsay with ID: 622
+Processed User jonmagic with ID: 623
+Processed User zpinter with ID: 625
+Processed User lmarlow with ID: 628
+Processed User bigethan with ID: 627
+Processed User rubenlozano with ID: 632
+Processed User martinjandrews with ID: 611
+Processed User olly with ID: 630
+Empty Repository banderson623/ComS311_Fall2012/master
+Processed User banderson623 with ID: 626
+Processed User mdub with ID: 610
+Processed User ludo with ID: 584
+Empty Repository hookercookerman/activemerchant/master
+Processed User timurvafin with ID: 571
+Processed User qerub with ID: 636
+Processed User jrimmer with ID: 629
+Processed User pjjw with ID: 638
+Processed User hookercookerman with ID: 631
+Processed User ph with ID: 640
+Empty Repository Bjwebb/.github/main
+Processed User Bjwebb with ID: 634
+Processed User leavengood with ID: 637
+Processed User doxavore with ID: 633
+Processed User fernandoallen with ID: 643
+Processed User pbx with ID: 641
+Processed User codehugger with ID: 615
+Empty Repository daniel/daniel.github.io/master
+Processed User daniel with ID: 635
+Processed User davidsmalley with ID: 644
+Empty Repository fspeirs/fspeirs/master
+Processed User fspeirs with ID: 642
+Empty Repository njonsson/njonsson.github.com/master
+Processed User hipertracker with ID: 649
+Processed User progrium with ID: 647
+Processed User mindy with ID: 650
+Empty Repository jhsu/arugula.js/master
+Processed User jhsu with ID: 648
+Empty Repository jasonf/try_git/master
+Processed User mlopes with ID: 654
+Processed User robmitch with ID: 653
+Empty Repository jasonf/stackistrano/master
+Processed User brian with ID: 657
+Processed User plainprogrammer with ID: 651
+Processed User tomislav with ID: 656
+Processed User stephencelis with ID: 658
+Processed User cuiguy with ID: 662
+Processed User sxross with ID: 655
+Processed User benr75 with ID: 661
+Processed User intinig with ID: 660
+Processed User jimmyjazz with ID: 663
+Empty Repository gebi/dropzoned/master
+Processed User gebi with ID: 659
+Empty Repository jasonf/Flight-Sim/master
+Processed User jasonf with ID: 652
+Processed User kstewart with ID: 666
+Processed User blaix with ID: 664
+Processed User vidyanand with ID: 667
+Processed User seven1m with ID: 669
+Processed User njonsson with ID: 645
+Empty Repository zachinglis/encoder-decoder/main
+Processed User cclow with ID: 668
+Processed User latompa with ID: 670
+Processed User kouky with ID: 671
+Processed User ryward with ID: 676
+Processed User ymendel with ID: 597
+Processed User bikerduweb with ID: 675
+ERROR non 200 response for file: {"owner":"incandescant","repo":"pseudo","branch":"master","filePath":"ports/uids_generic/guts/setegid.c"}
+ERROR non 200 response for file: {"owner":"ecin","repo":"codespaces-rails","branch":"main","filePath":"vendor/bundle/ruby/3.0.0/gems/activerecord-7.0.3/lib/active_record/encryption/contexts.rb"}
+ERROR non 200 response for file: {"owner":"osteele","repo":"creative-coding.book","branch":"master","filePath":"src/components/layout.js"}
+ERROR non 200 response for file: {"owner":"osteele","repo":"creative-coding.book","branch":"master","filePath":"src/components/link.js"}
+ERROR non 200 response for file: {"owner":"roop","repo":"NotekeeperOpen","branch":"master","filePath":"src/cloud/evernote/3rdparty/boost/boost/icl/type_traits/is_interval_splitter.hpp"}
+ERROR non 200 response for file: {"owner":"redinger","repo":"numerex_test","branch":"master","filePath":"app/views/home/map.rhtml"}
+ERROR non 200 response for file: {"owner":"redinger","repo":"numerex_test","branch":"master","filePath":"app/views/home/statistics.rhtml"}
+ERROR non 200 response for file: {"owner":"captproton","repo":"Bowler-Hat","branch":"master","filePath":"vendor/rails/activesupport/lib/active_support/vendor/tzinfo-0.3.12/tzinfo/definitions/Europe/Dublin.rb"}
+ERROR non 200 response for file: {"owner":"osteele","repo":"creative-coding.book","branch":"master","filePath":"src/components/mdxComponents/anchor.js"}
+ERROR non 200 response for file: {"owner":"tomtaylor","repo":"bnf-html","branch":"master","filePath":"www.medicinescomplete.com/mc/bnf/current/PHP3775-tenofovir-disoproxil.htm"}
+ERROR non 200 response for file: {"owner":"caffo","repo":"bookcover-action","branch":"main","filePath":"node_modules/is-date-object/package.json"}
+ERROR non 200 response for file: {"owner":"redinger","repo":"numerex_test","branch":"master","filePath":"app/views/layouts/_flash_message.rhtml"}
+Processed User jtmxx with ID: 681
+Processed User jlindley with ID: 678
+Empty Repository robmack/try_git/master
+Processed User digitalhobbit with ID: 682
+Empty Repository alexagui/try_git/master
+Processed User alexagui with ID: 685
+Processed User james2m with ID: 677
+Processed User robmack with ID: 683
+Processed User dalsgaard with ID: 679
+Processed User fazibear with ID: 687
+Processed User mazdak with ID: 691
+Processed User lsegal with ID: 686
+Empty Repository russ/bugsnag-elixir/master
+Processed User russ with ID: 684
+Processed User matschaffer with ID: 690
+Empty Repository caius/actions-playground/master
+Empty Repository caius/actions_test/main
+Processed User bryckbost with ID: 692
+Processed User farcaller with ID: 693
+Processed User dermotbrennan with ID: 689
+Processed User sbellware with ID: 695
+Empty Repository caius/actioncable/master
+Empty Repository caius/actionmailbox/master
+Empty Repository caius/actionpack/master
+Empty Repository caius/actionmailer/master
+Empty Repository caius/actiontext/master
+Empty Repository caius/actionview/master
+Empty Repository caius/activejob/master
+Empty Repository grosours/bonito/master
+Processed User grosours with ID: 688
+Empty Repository lstoll/cooking/master
+Empty Repository caius/activerecord/master
+Processed User dgiunta with ID: 697
+Empty Repository caius/activesupport/master
+Empty Repository gjnoonan/try_git/master
+Empty Repository caius/activemodel/master
+Processed User nkallen with ID: 699
+Processed User jimmygoodboy with ID: 705
+Empty Repository caius/activestorage/master
+Processed User caius with ID: 696
+Empty Repository gjnoonan/emacs-package-mirror/master
+Processed User gjnoonan with ID: 702
+Error Encountered: {"name":"HttpError","status":504,"response":{"url":"https://api.github.com/repos/lstoll/andys/git/trees/master?recursive=1","status":504,"headers":{"access-control-allow-origin":"*;","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset","cache-control":"no-cache","connection":"close","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'","content-type":"application/json; charset=utf-8","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","strict-transport-security":"max-age=31536000","x-content-type-options":"nosniff","x-frame-options":"deny","x-github-media-type":"github.v3; format=json","x-xss-protection":"0"},"data":{"message":"We couldn't respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists."}},"request":{"method":"GET","url":"https://api.github.com/repos/lstoll/andys/git/trees/master?recursive=1","headers":{"accept":"application/vnd.github.v3+json","user-agent":"octokit.js/3.1.1 octokit-core.js/5.0.1 Node.js/20.9.0 (win32; x64)","authorization":"token [REDACTED]"},"request":{"retryCount":3,"retries":3,"retryAfter":25}}}
+Empty Repository jokull/github-starfeed/master
+Processed User jokull with ID: 701
+Processed User kaspar with ID: 707
+Processed User xxgreg with ID: 704
+Processed User brokendisk with ID: 712
+Processed User seaofclouds with ID: 708
+Processed User necrodome with ID: 711
+Processed User delagoya with ID: 710
+Processed User lilyball with ID: 714
+Processed User digitalknk with ID: 713
+Processed User chrislloyd with ID: 718
+Processed User pclouds with ID: 720
+Processed User grantr with ID: 680
+Processed User malomalo with ID: 716
+Processed User gregbell with ID: 719
+Processed User heycarsten with ID: 700
+Processed User jared with ID: 709
+Processed User xenith with ID: 723
+Processed User marc with ID: 725
+Processed User brettg with ID: 722
+Processed User cvk with ID: 727
+Processed User xuejm with ID: 729
+Processed User bledig with ID: 732
+Processed User pjb3 with ID: 726
+Processed User martinisoft with ID: 724
+Processed User blowmage with ID: 730
+Processed User oleganza with ID: 698
+Processed User schmidt with ID: 734
+Processed User v15h with ID: 737
+Processed User cylence with ID: 739
+Processed User rmm5t with ID: 740
+Processed User travo with ID: 733
+Processed User jasherai with ID: 738
+Processed User shirkevich with ID: 742
+Processed User christos with ID: 736
+Processed User roncohen with ID: 744
+Processed User peregrine with ID: 717
+Processed User Bregor with ID: 745
+Processed User quigebo with ID: 741
+Processed User gnu-lorien with ID: 731
+Processed User lukehoersten with ID: 743
+Processed User tekkub with ID: 706
+Processed User juretta with ID: 746
+Empty Repository jney/docs/master
+Processed User mortenbagai with ID: 749
+Processed User tom with ID: 748
+Empty Repository myabc/dls/master
+Processed User lagsalot with ID: 751
+Processed User yesmar with ID: 721
+Processed User stefanoc with ID: 756
+Empty Repository jney/crow/master
+Processed User jney with ID: 747
+Empty Repository smerickson/tasks/main
+Processed User smerickson with ID: 750
+Processed User oliverandrich with ID: 758
+Processed User mde with ID: 757
+Processed User asanghi with ID: 762
+Processed User ctcherry with ID: 760
+Processed User lstoll with ID: 694
+Processed User PabloC with ID: 764
+Processed User jerrod with ID: 765
+Processed User tschacht with ID: 735
+Processed User malkomalko with ID: 763
+Empty Repository jfreeze/jewelcoin/master
+Empty Repository baldur/android/master
+Processed User baldur with ID: 759
+Empty Repository jfreeze/CombinatoricExploder/master
+Processed User vigosan with ID: 767
+Processed User zach with ID: 770
+Empty Repository lydgate/logseq/main
+Processed User alex with ID: 772
+Processed User djspiewak with ID: 752
+Processed User jordanbrock with ID: 775
+Processed User mahnve with ID: 777
+Processed User clupprich with ID: 773
+Processed User lydgate with ID: 771
+Processed User peburrows with ID: 778
+Processed User booss with ID: 779
+Processed User brijohn with ID: 776
+Processed User rjspotter with ID: 761
+Processed User wkeenan with ID: 783
+Processed User ebello with ID: 782
+Processed User benslavin with ID: 784
+Processed User myabc with ID: 755
+Error Encountered: {"name":"HttpError","status":451,"response":{"url":"https://api.github.com/repos/joe/breadwallet-ios/git/trees/master?recursive=1","status":451,"headers":{"access-control-allow-origin":"*","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset","content-length":"189","content-security-policy":"default-src 'none'","content-type":"application/json; charset=utf-8","date":"Fri, 15 Dec 2023 23:52:41 GMT","github-authentication-token-expiration":"2023-12-21 16:38:48 UTC","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","server":"GitHub.com","strict-transport-security":"max-age=31536000; includeSubdomains; preload","vary":"Accept-Encoding, Accept, X-Requested-With","x-accepted-oauth-scopes":"","x-content-type-options":"nosniff","x-frame-options":"deny","x-github-api-version-selected":"2022-11-28","x-github-media-type":"github.v3; format=json","x-github-request-id":"DBCC:0C04:5AEBE3:BE99CE:657CE6C8","x-oauth-scopes":"repo, write:discussion","x-ratelimit-limit":"5000","x-ratelimit-remaining":"3841","x-ratelimit-reset":"1702686926","x-ratelimit-resource":"core","x-ratelimit-used":"1159","x-xss-protection":"0"},"data":{"message":"Repository access blocked","block":{"reason":"dmca","created_at":"2020-07-10T17:50:46Z","html_url":"https://github.com/github/dmca/blob/master/2020/07/2020-07-09-lineto-14.md"}}},"request":{"method":"GET","url":"https://api.github.com/repos/joe/breadwallet-ios/git/trees/master?recursive=1","headers":{"accept":"application/vnd.github.v3+json","user-agent":"octokit.js/3.1.1 octokit-core.js/5.0.1 Node.js/20.9.0 (win32; x64)","authorization":"token [REDACTED]"},"request":{"retryCount":1}}}
+Processed User piclez with ID: 781
+Processed User fbrubacher with ID: 768
+Processed User kevinfinlayson with ID: 785
+Processed User sxh with ID: 788
+Empty Repository jaf/librarycloud/master
+Processed User jaf with ID: 780
+Processed User bordy with ID: 790
+Processed User adamsalter with ID: 786
+Processed User dusty with ID: 792
+Empty Repository joe/joe.github.com/master
+Processed User joe with ID: 787
+Processed User kogent with ID: 796
+Processed User janson with ID: 793
+Processed User companygardener with ID: 791
+Processed User tarcieri with ID: 797
+Empty Repository mattrenquist/mattrenquist/main
+Processed User mattrenquist with ID: 799
+Processed User jdskufca with ID: 801
+Processed User lauri with ID: 800
+Processed User nexneo with ID: 794
+Processed User wiktorschmidt with ID: 807
+Processed User apod with ID: 804
+Processed User seangeo with ID: 802
+Processed User denis with ID: 805
+Empty Repository DimaD/sunspot-datamapper/master
+Processed User DimaD with ID: 795
+Processed User rpheath with ID: 789
+Processed User tarsolya with ID: 809
+Empty Repository daveliu/4a7ba8ca9d0cda9c56c9/master
+Processed User kfl62 with ID: 798
+Processed User jsgoecke with ID: 754
+Processed User Imbrondir with ID: 813
+Processed User nimms with ID: 814
+Processed User evs with ID: 815
+Processed User znarf with ID: 806
+Empty Repository daveliu/0659f2ba43410260c323/master
+Processed User bitshape with ID: 821
+Processed User revelation with ID: 728
+Processed User mvanholstyn with ID: 769
+Processed User peleteiro with ID: 822
+Processed User rocanion with ID: 818
+Processed User miles with ID: 824
+Processed User vvarp with ID: 810
+Processed User igor with ID: 823
+Processed User mkomitee with ID: 826
+Processed User akatz with ID: 817
+Empty Repository weepy/catsfaceme/master
+Processed User weepy with ID: 820
+Processed User zygote with ID: 833
+Processed User shanesveller with ID: 831
+Processed User wunki with ID: 825
+Processed User FooBarWidget with ID: 819
+Empty Repository joergbattermann/JB.Tfs.WorkItemTrackingControls/master
+Processed User joergbattermann with ID: 828
+Processed User EugZol with ID: 835
+Empty Repository baxter/zd_hire_test_3/master
+Processed User huxley with ID: 839
+Processed User mutle with ID: 829
+Processed User michele with ID: 838
+Processed User DanielVF with ID: 837
+Processed User daveliu with ID: 812
+Processed User svperfecta with ID: 816
+Processed User medic0747 with ID: 845
+Processed User galfert with ID: 843
+Processed User keeran with ID: 848
+Processed User haikuwebdev with ID: 844
+Empty Repository blanco/unicode-stuff/master
+Processed User blanco with ID: 841
+Processed User natacado with ID: 846
+Processed User remash with ID: 852
+Processed User baxter with ID: 830
+Processed User shantanoo with ID: 853
+Processed User hotsyk with ID: 847
+Processed User janfri with ID: 854
+Processed User olivM with ID: 855
+Processed User andypearson with ID: 857
+Processed User mphilpot with ID: 850
+Processed User peks with ID: 834
+Processed User EatenHardship with ID: 859
+Processed User cavalle with ID: 856
+Processed User derekperrault with ID: 862
+Processed User whynot with ID: 861
+Processed User juliamae with ID: 849
+Processed User bkudria with ID: 860
+Processed User cdb with ID: 836
+Processed User pager with ID: 864
+Processed User fredlee with ID: 858
+Processed User cpjolicoeur with ID: 863
+Processed User raucao with ID: 842
+Processed User mmmurf with ID: 870
+Processed User noin with ID: 840
+Processed User sintaxi with ID: 867
+Empty Repository peters/casablanca/master
+Empty Repository pengwynn/an-test/master
+Processed User pengwynn with ID: 865
+Processed User thom with ID: 866
+Processed User jiphex with ID: 875
+Processed User thetamind with ID: 872
+Processed User spejman with ID: 873
+Processed User tobinibot with ID: 879
+Empty Repository Phill/silver-lake-ranch/master
+Processed User Phill with ID: 871
+Processed User ragnard with ID: 882
+Processed User lukerandall with ID: 878
+Processed User eugen with ID: 880
+Processed User scotu with ID: 868
+Processed User benoitgoby with ID: 883
+Processed User acidburnz with ID: 885
+Processed User alexvetter with ID: 874
+Processed User armitage with ID: 888
+Processed User bigbrother with ID: 889
+Processed User mislav with ID: 887
+Processed User brenton with ID: 832
+Empty Repository slaytanic/recipes/master
+Processed User BrentonEarl with ID: 715
+Processed User luisbarrueco with ID: 895
+Processed User mountain with ID: 851
+Processed User lucas-xx with ID: 896
+Processed User slaytanic with ID: 890
+Processed User hunter with ID: 898
+Processed User Val with ID: 897
+Empty Repository rigagoogoo/boohoohoo/main
+Processed User rigagoogoo with ID: 894
+Processed User kennyp with ID: 902
+Processed User r8u with ID: 906
+Processed User tohchye with ID: 905
+Processed User gensym with ID: 899
+Processed User harrylove with ID: 904
+Processed User joseph with ID: 900
+Processed User lukaszcho with ID: 907
+Processed User benhoskings with ID: 901
+Processed User dennisreimann with ID: 886
+Empty Repository luke0x/chillwave/master
+Processed User mattly with ID: 891
+Processed User bartcortooms with ID: 909
+Processed User wasnotrice with ID: 908
+Processed User webzense with ID: 914
+Processed User peters with ID: 869
+Processed User oool with ID: 921
+Empty Repository shenoudab/slug_hstore/master
+Processed User shenoudab with ID: 911
+Processed User ejdraper with ID: 910
+Processed User Norgg with ID: 913
+Processed User amiroff with ID: 919
+Empty Repository antramm/ember-cli-emblem/master
+Processed User antramm with ID: 917
+Processed User greenpart with ID: 922
+ERROR non 200 response for file: {"owner":"neves","repo":"escolar","branch":"master","filePath":"vendor/plugins/rspec/spec/spec/story/runner/scenario_collector_spec.rb"}
+ERROR non 200 response for file: {"owner":"jparker","repo":"api-doc-mirror","branch":"master","filePath":"rails22-ruby18/rails/files/actionpack/lib/action_view/paths_rb.html"}
+ERROR non 200 response for file: {"owner":"luke0x","repo":"connector","branch":"master","filePath":"app/views/sidebars/groups/_service_group.rhtml"}
+ERROR non 200 response for file: {"owner":"benschwarz","repo":"cache.js","branch":"master","filePath":"node_modules/grunt-contrib-jasmine/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/lib/phantom/examples/arguments.coffee"}
+ERROR non 200 response for file: {"owner":"be9","repo":"bookez","branch":"master","filePath":"spec/helpers/authors_helper_spec.rb"}
+ERROR non 200 response for file: {"owner":"benschwarz","repo":"benschwarz-site-v2","branch":"master","filePath":"public/stylesheets/sass/_css3.scss"}
+ERROR non 200 response for file: {"owner":"benschwarz","repo":"bonsai","branch":"master","filePath":"spec/support/content/1.about-us/history/child/demo-template.yml"}
+ERROR non 200 response for file: {"owner":"cmrichards","repo":"gladiabot_stats","branch":"master","filePath":"vendor/bundle/ruby/2.4.0/gems/i18n-0.8.1/test/api/fallbacks_test.rb"}
+ERROR non 200 response for file: {"owner":"cmrichards","repo":"gladiabot_stats","branch":"master","filePath":"vendor/bundle/ruby/2.4.0/gems/i18n-0.8.1/test/backend/chain_test.rb"}
+ERROR non 200 response for file: {"owner":"jparker","repo":"api-doc-mirror","branch":"master","filePath":"rails22-ruby18/rails/files/activerecord/CHANGELOG.html"}
+ERROR non 200 response for file: {"owner":"luke0x","repo":"connector","branch":"master","filePath":"app/views/sidebars/groups/_strongspace_group.rhtml"}
+ERROR non 200 response for file: {"owner":"jparker","repo":"api-doc-mirror","branch":"master","filePath":"rails22-ruby18/rails/files/activerecord/lib/active_record/associations/belongs_to_polymorphic_association_rb.html"}
+Processed User ewhitten with ID: 928
+Processed User dwabn with ID: 930
+Processed User kobrakai with ID: 933
+Processed User gonzague with ID: 932
+Processed User r38y with ID: 926
+Processed User cbartlett with ID: 925
+Processed User jwallace with ID: 938
+Processed User constantine-nikolaou with ID: 927
+Processed User iconmaster with ID: 935
+Processed User muness with ID: 931
+Empty Repository julesss/wlwdeezerplayer/master
+Processed User julesss with ID: 929
+Processed User wadewinningham with ID: 941
+Processed User samsm with ID: 937
+Processed User fonseca with ID: 942
+Processed User teftin with ID: 943
+Processed User jodo with ID: 946
+Processed User keeg with ID: 934
+Processed User scivi with ID: 944
+Processed User pusewicz with ID: 940
+Processed User raskchanky with ID: 947
+Processed User jreynolds with ID: 952
+Processed User daddz with ID: 953
+Empty Repository jonuts/nimrod/master
+Processed User jonuts with ID: 948
+Processed User soveran with ID: 951
+Processed User rbriski with ID: 949
+Processed User minter with ID: 955
+Processed User glv with ID: 959
+Processed User ibspoof with ID: 958
+Processed User cromney with ID: 961
+Processed User blchamberlain with ID: 962
+Processed User heymarcel with ID: 960
+Empty Repository tamersalama/temporary/main
+Processed User tamersalama with ID: 954
+Processed User cndreisbach with ID: 956
+Processed User objo with ID: 964
+Processed User champion-xx with ID: 968
+Error Encountered: {"name":"HttpError","status":403,"response":{"url":"https://api.github.com/repos/hosh/atlanta/git/trees/master?recursive=1","status":403,"headers":{"access-control-allow-origin":"*","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset","content-encoding":"gzip","content-security-policy":"default-src 'none'","content-type":"application/json; charset=utf-8","date":"Sat, 16 Dec 2023 01:57:18 GMT","github-authentication-token-expiration":"2023-12-21 16:38:48 UTC","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","server":"GitHub.com","strict-transport-security":"max-age=31536000; includeSubdomains; preload","transfer-encoding":"chunked","vary":"Accept-Encoding, Accept, X-Requested-With","x-accepted-oauth-scopes":"","x-content-type-options":"nosniff","x-frame-options":"deny","x-github-api-version-selected":"2022-11-28","x-github-media-type":"github.v3; format=json","x-github-request-id":"E2D4:5313:9CE5FB:14666B1:657D03FE","x-oauth-scopes":"repo, write:discussion","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4598","x-ratelimit-reset":"1702694129","x-ratelimit-resource":"core","x-ratelimit-used":"402","x-xss-protection":"0"},"data":{"message":"Repository access blocked","block":{"reason":"unavailable","created_at":"2014-01-31T22:32:14Z","html_url":"https://github.com/tos"}}},"request":{"method":"GET","url":"https://api.github.com/repos/hosh/atlanta/git/trees/master?recursive=1","headers":{"accept":"application/vnd.github.v3+json","user-agent":"octokit.js/3.1.1 octokit-core.js/5.0.1 Node.js/20.9.0 (win32; x64)","authorization":"token [REDACTED]"},"request":{"retryCount":4}}}
+Processed User hosh with ID: 966
+Processed User zdennis with ID: 967
+Processed User melito with ID: 957
+Processed User cjmartin with ID: 936
+Processed User TaYpworm with ID: 971
+Processed User wharle with ID: 972
+Processed User mhat with ID: 973
+Processed User gilesbowkett with ID: 974
+Processed User conorh with ID: 969
+Empty Repository ktheory/active_memcache/master
+Processed User ktheory with ID: 975
+Processed User natalie-zz with ID: 976
+Processed User mully with ID: 979
+Processed User stickmanlabs with ID: 981
+Processed User cypher with ID: 978
+Processed User statik with ID: 983
+Processed User ddemaree with ID: 965
+Processed User pierro with ID: 985
+Processed User phlipper with ID: 984
+Empty Repository firewheel/fliptexas/master
+Processed User firewheel with ID: 986
+Processed User Sija with ID: 988
+Processed User martinemde with ID: 989
+Processed User sharnik with ID: 987
+Processed User mlangenberg with ID: 992
+Processed User slowernet with ID: 991
+Processed User outten45 with ID: 993
+Processed User brianleroux with ID: 990
+Empty Repository avdi/articles/master
+Processed User avdi with ID: 982
+Processed User benschwarz with ID: 924
+Processed User trioglobal with ID: 997
+Processed User jeremy6d with ID: 945
+Processed User bricooke with ID: 977
+Empty Repository vitaliel/check-svn-import/master
+Empty Repository maxthelion/ev-gem/master
+Processed User sbecker with ID: 1001
+Processed User colin with ID: 950
+Processed User maxthelion with ID: 999
+Processed User stocad with ID: 1003
+Processed User Schultz with ID: 1008
+Empty Repository aharper/eatingsafe/master
+Processed User aharper with ID: 1002
+Processed User ernesto-jimenez with ID: 1005
+Processed User plaggypig with ID: 1011
+Processed User damm with ID: 1010
+Processed User adambair with ID: 1004
+Processed User lbuenaventura with ID: 1013
+Processed User aslakhellesoy with ID: 1000
+Empty Repository marcinpohl/nginx.serviceHARD/master
+Processed User hilc with ID: 1015
+Processed User mystical with ID: 1018
+Processed User sunfmin with ID: 1014
+Empty Repository marcinpohl/fstf/master
+Processed User marcinpohl with ID: 1007
+Processed User altano with ID: 1009
+Processed User jjgod with ID: 1017
+Processed User sethtrain with ID: 1021
+Processed User cobrien with ID: 1023
+Processed User rwdaigle with ID: 1012
