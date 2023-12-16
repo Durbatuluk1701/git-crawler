@@ -548,7 +548,7 @@ const startShutdown = async () => {
   }
   allowRunning = false;
   barHandle.log(
-    "Shutdown Starting... Please be Patient as all remaining requests are handled"
+    "Shutdown Starting... Please be Patient as all remaining requests are handled\n"
   );
 
   alreadyEscaped = true;
