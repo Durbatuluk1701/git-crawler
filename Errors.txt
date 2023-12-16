@@ -1241,3 +1241,80 @@ ERROR non 200 response for file: {"owner":"waferbaby","repo":"usesthis","branch"
 ERROR non 200 response for file: {"owner":"slip","repo":"Sorba-Atlanta-Redesign","branch":"master","filePath":"node_modules/resolve/test/module_dir/zmodules/bbb/package.json"}
 ERROR non 200 response for file: {"owner":"waferbaby","repo":"usesthis","branch":"main","filePath":"gear/hardware/r/remote.json"}
 ERROR non 200 response for file: {"owner":"waferbaby","repo":"usesthis","branch":"main","filePath":"gear/hardware/r/resolve-control.json"}
+Processed User cameroncox with ID: 1105
+Processed User eliot-xx with ID: 1109
+Processed User tolbrino with ID: 1107
+Processed User robhudson with ID: 1106
+Empty Repository juggy/compare/master
+Processed User adamc with ID: 1117
+Processed User patmaddox with ID: 1111
+Processed User rickmzp with ID: 1114
+Processed User willnorris with ID: 1112
+Processed User djwhitt with ID: 1110
+Processed User treybean with ID: 1118
+Processed User perpet with ID: 1121
+Processed User railsdog with ID: 1119
+Processed User pmarsh with ID: 1124
+Processed User omghax with ID: 1123
+Processed User frim with ID: 1126
+Processed User vg-xx with ID: 1127
+Processed User mm53bar with ID: 1116
+Processed User rosshq with ID: 1130
+Processed User coty with ID: 1128
+Processed User Conap with ID: 1132
+Processed User trym with ID: 1135
+Processed User nickmerwin with ID: 1129
+Processed User ovelar with ID: 1137
+Processed User eggie5 with ID: 1122
+Processed User indmill with ID: 1138
+Empty Repository bdarcus/csl-new-test-suite/master
+Processed User bdarcus with ID: 1134
+Processed User cglee with ID: 1144
+Empty Repository tel/cs475/master
+Processed User tel with ID: 1141
+Empty Repository bennettandrews/bennettandrews/main
+Processed User bennettandrews with ID: 1143
+Processed User drcode with ID: 1125
+Empty Repository sotirac/action_mailer_tls/master
+Processed User sotirac with ID: 1140
+Empty Repository michaelbarton/notebook-zstd-fastq-comparison/main
+Processed User larrytheliquid with ID: 1131
+Processed User expilo with ID: 1149
+Processed User jamiehoover with ID: 1153
+Processed User pingles with ID: 1150
+Processed User Furie with ID: 1155
+Processed User michaelbarton with ID: 1142
+Processed User rahoulb with ID: 1154
+Processed User ndemonner with ID: 1157
+Processed User mtarbit with ID: 1120
+Error Encountered: {"name":"HttpError","status":403,"response":{"url":"https://api.github.com/repos/jesseclark/pci4r/git/trees/master?recursive=1","status":403,"headers":{"access-control-allow-origin":"*","access-control-expose-headers":"ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset","content-encoding":"gzip","content-security-policy":"default-src 'none'","content-type":"application/json; charset=utf-8","date":"Sat, 16 Dec 2023 15:40:29 GMT","github-authentication-token-expiration":"2023-12-21 16:38:48 UTC","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","server":"GitHub.com","strict-transport-security":"max-age=31536000; includeSubdomains; preload","transfer-encoding":"chunked","vary":"Accept-Encoding, Accept, X-Requested-With","x-accepted-oauth-scopes":"","x-content-type-options":"nosniff","x-frame-options":"deny","x-github-api-version-selected":"2022-11-28","x-github-media-type":"github.v3; format=json","x-github-request-id":"EF9C:41ED:16ED84D:30127DE:657DC4ED","x-oauth-scopes":"repo, write:discussion","x-ratelimit-limit":"5000","x-ratelimit-remaining":"4647","x-ratelimit-reset":"1702744550","x-ratelimit-resource":"core","x-ratelimit-used":"353","x-xss-protection":"0"},"data":{"message":"Repository access blocked","block":{"reason":"unavailable","created_at":"2019-04-24T10:39:58Z","html_url":"https://github.com/tos"}}},"request":{"method":"GET","url":"https://api.github.com/repos/jesseclark/pci4r/git/trees/master?recursive=1","headers":{"accept":"application/vnd.github.v3+json","user-agent":"octokit.js/3.1.1 octokit-core.js/5.0.1 Node.js/20.9.0 (win32; x64)","authorization":"token [REDACTED]"},"request":{"retryCount":1}}}
+Processed User netguru with ID: 1146
+Processed User jesseclark with ID: 1159
+Processed User Cordobo with ID: 1158
+Empty Repository dust3d/try_git/master
+Empty Repository careo/acts_as_awesome_fu/master
+Processed User careo with ID: 1156
+Processed User coxy with ID: 1160
+Processed User macgyver with ID: 1163
+Processed User mschrag with ID: 1166
+Processed User thomasritz with ID: 1152
+Processed User Krishna with ID: 1164
+Processed User davidslee9 with ID: 1170
+Processed User stefanformrausch with ID: 1171
+Processed User jipipayo with ID: 1165
+Processed User willb with ID: 1161
+Processed User rymai with ID: 1168
+Processed User cliffspence with ID: 1173
+Processed User fzero with ID: 1115
+Processed User ndarilek with ID: 1172
+Processed User billturner with ID: 1174
+Processed User dacresni with ID: 1167
+Processed User h3rald with ID: 1169
+Processed User juggy with ID: 1108
+Processed User travis with ID: 1113
+Processed User dust3d with ID: 1162
+Processed User alce with ID: 1133
+Processed User nemequ with ID: 1151
+Processed User mza with ID: 1145
+Processed User markmcspadden with ID: 1148
+Processed User bjhess with ID: 1175
