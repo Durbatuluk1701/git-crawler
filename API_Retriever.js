@@ -516,7 +516,7 @@ const runCrawler = async () => {
     }
   }
 
-  barHandle.log("Awating Completion of Currently Running Promises\n");
+  barHandle.log("Awaiting Completion of Currently Running Promises\n");
   await Promise.allSettled(Object.values(promiseQueue));
 };
 
