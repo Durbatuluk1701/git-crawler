@@ -33,15 +33,43 @@ const summarizeDb = (inpDb) => {
   return returnDb;
 };
 
-const groupKeys = (keys) => {
+const groupKeys = (keys, mergeSpecial = false) => {
+  const shiftedChars = {
+    "!": "1",
+    "@": "2",
+    "#": "3",
+    $: "4",
+    "%": "5",
+    "^": "6",
+    "&": "7",
+    "*": "8",
+    "(": "9",
+    ")": "0",
+    _: "-",
+    "+": "=",
+    "{": "[",
+    "}": "]",
+    "|": "\\",
+    ":": ";",
+    '"': "'",
+    "<": ",",
+    ">": ".",
+    "?": "/",
+    "~": "`",
+  };
+
   const groupedKeys = {};
 
   keys.forEach((key) => {
     const normalizedKey = key.toLowerCase();
-    if (!groupedKeys[normalizedKey]) {
-      groupedKeys[normalizedKey] = [key];
+    const baseKey = mergeSpecial
+      ? shiftedChars[normalizedKey] || normalizedKey
+      : normalizedKey;
+
+    if (!groupedKeys[baseKey]) {
+      groupedKeys[baseKey] = [key];
     } else {
-      groupedKeys[normalizedKey].push(key);
+      groupedKeys[baseKey].push(key);
     }
   });
 
@@ -49,7 +77,7 @@ const groupKeys = (keys) => {
 };
 
 // NOTE: Some big issue with the sorting, since numbers are not valid JS idents they move to top
-const calcDbStats = (obj, debug = true) => {
+const calcDbStats = (obj, debug = true, mergeSpecial = false) => {
   const totalChars = Object.keys(obj).reduce((acc, v) => acc + obj[v], 0);
   debug && console.log(`Total Chars Witnesses: ${totalChars}\n`);
   const filterUnprintables = Object.keys(obj).filter((key) => {
@@ -66,7 +94,7 @@ const calcDbStats = (obj, debug = true) => {
     }
     return true;
   });
-  const groupedKeys = groupKeys(filterUnprintables);
+  const groupedKeys = groupKeys(filterUnprintables, mergeSpecial);
   // Get output
   const groupedPrintableKeys = {};
   Object.keys(groupedKeys).forEach((a) => {
@@ -164,7 +192,10 @@ const minifiedDb = minifyDb(fullDb);
 
 fs.writeFileSync(OutputFullDb, JSON.stringify(fullDb, null, 2));
 fs.writeFileSync(OutputMiniDb, JSON.stringify(minifiedDb, null, 2));
-fs.writeFileSync(OutputStatsTxt, statDbToPrint(calcDbStats(minifiedDb)));
+fs.writeFileSync(
+  OutputStatsTxt,
+  statDbToPrint(calcDbStats(minifiedDb, true, true))
+);
 
 fs.writeFileSync(
   OutputFullGroupedDb,
